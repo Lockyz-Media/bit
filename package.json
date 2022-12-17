@@ -1,0 +1,19 @@
+{
+  "name": "bit-core",
+  "version": "3.0.0",
+  "description": "",
+  "main": "bit.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lockyz-Dev/bit-core.git"
+  },
+  "author": "Lockyz Dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lockyz-Dev/bit-core/issues"
+  },
+  "homepage": "https://github.com/Lockyz-Dev/bit-core#readme"
+}
