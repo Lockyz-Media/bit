@@ -1,0 +1,8 @@
+{
+	"embecColor": "#8080",
+	"ownerID": "OWNER-ID",
+	"clientId": "BOT-ID",
+	"guildId": "GUILD-ID",
+	"token": "BOT-TOKEN",
+	"activity": "Bot created by Lockyz Dev"
+}
