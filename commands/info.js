@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('discord.js');
 const { MessageEmbed, Permissions, version: discordVersion } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
@@ -6,7 +6,15 @@ require('moment-duration-format');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('info')
-		.setDescription('Get advanced information about the bot.'),
+        .setNameLocalizations({
+            de: 'info',
+            fr: 'info',
+        })
+		.setDescription('Get advanced information about the bot.')
+        .setDescriptionLocalizations({
+            de: 'Erhalten Sie erweiterte Informationen über den Bot.',
+            fr: 'Obtenez des informations avancées sur le bot.',
+        }),
 	async execute(interaction) {
         const client = interaction.client
         var lan = 'en'
@@ -31,7 +39,7 @@ module.exports = {
             .addField('Discord.js', `v${discordVersion}`, true)
             .addField('Node', `${process.version}`, true)
             .addField('Version', "v30092022", true)
-            .addField('Bug Tracker', "https://tracker.lockyzdev.net")
+            .addField('Bug Tracker', "https://tracker.lockyzdev.net/set_project.php?project_id=5")
             .setFooter({ text: "©2018-"+n+" Lockyz Dev"});
         interaction.reply({ embeds: [embed] })
 	}

@@ -1,28 +1,45 @@
-const { MessageEmbed } = require('discord.js');
-const { embedColor, ownerID } = require('../config');
-const SQLite = require("better-sqlite3");
-const messageUpdate = require('../logging/messageUpdate');
-const ms = require("ms");
+const { Events } = require('discord.js');
 
 module.exports = {
-	name: 'interactionCreate',
-	execute(interaction) {
+    name: Events.InteractionCreate,
+    async execute(interaction) {
+        if(interaction.isChatInputCommand()) {
+            const command = interaction.client.commands.get(interaction.commandName);
 
-        let client = interaction.client;
-
-        const command = interaction.client.commands.get(interaction.commandName);
-
-        if (command)
-        try {
-            if(!interaction.guild) {
-                interaction.reply({ content: 'Commands can only be executed in a server' })
+            if(!command) {
+                console.error(`No command matching ${interaction.commandName} was found.`);
                 return;
             }
 
-            command.execute(interaction);
-        } catch (error) {
-            console.error(error);
-            interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+            try {
+                if(!interaction.guild) {
+                    interaction.reply({ content: 'Commands can only be executed within a server.' })
+                    return;
+                } else {
+                    await command.execute(interaction);
+                }
+            } catch (error) {
+                console.error(error);
+
+                if(interaction.replied || interaction.deferred) {
+                    await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+                } else {
+                    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+                }
+            }
+        } else if(interaction.isAutocomplete()) {
+            const command = interaction.client.commands.get(interaction.commandName);
+
+            if (!command) {
+                console.error(`No command matching ${interaction.commandName} was found.`);
+                return;
+            }
+    
+            try {
+                await command.autocomplete(interaction);
+            } catch (error) {
+                console.error(error);
+            }
         }
-	},
-};
+    }
+}
