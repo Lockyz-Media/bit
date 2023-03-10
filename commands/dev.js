@@ -1,7 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { MessageEmbed, Permissions, version: discordVersion } = require('discord.js')
-const moment = require('moment');
-require('moment-duration-format');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -33,14 +30,21 @@ module.exports = {
         ),
 	async execute(interaction) {
         const client = interaction.client
+        var lan = 'en'
+        const locale = require('../locale/'+lan+'.json')
         const feature = interaction.options.getString('function');
 
         if(interaction.user.id === "835394949612175380") {
             if(feature === "stop") {
-                process.exit();
+                interaction.reply({ content: "Bot will stop in 5 seconds", ephemeral: true })
+                setTimeout(function(){
+                    process.exit();
+                }, 5000);
+            } else {
+                interaction.reply({ content: locale.error.unfinishedFeature })
             }
         } else {
-            interaction.reply({ content: "What you doing? You're not supposed to try this :(" })
+            interaction.reply({ content: locale.error.noPermission })
         }
 	}
 };

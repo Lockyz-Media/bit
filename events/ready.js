@@ -13,7 +13,7 @@ module.exports = {
 		});
 
 		console.log('Playing Status Set')
-		console.log('🟢 Bit Core v17122022 Online! Logged in as '+ client.user.tag)
+		console.log('🟢 Bit Core v10032023 Online! Logged in as '+ client.user.tag)
 		console.log('==== Have a good day! ====');
 	}
 }

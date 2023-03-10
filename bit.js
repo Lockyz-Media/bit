@@ -8,7 +8,7 @@ const client = new Client({
 		GatewayIntentBits.Guilds,
 		GatewayIntentBits.GuildMembers,
 		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildBans,
+		GatewayIntentBits.GuildModeration,
 		GatewayIntentBits.GuildInvites,
 		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.GuildMessages,
@@ -36,6 +36,7 @@ for(const file of commandFiles) {
 		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
 }
+console.log("Loading "+commandFiles.length+" commands")
 
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
@@ -49,8 +50,9 @@ for(const file of eventFiles) {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
+console.log("Loading "+eventFiles.length+" events")
 
-const loggingPath = path.join(__dirname, 'events');
+const loggingPath = path.join(__dirname, 'logging');
 const loggingFiles = fs.readdirSync(loggingPath).filter(file => file.endsWith('.js'));
 
 for(const file of loggingFiles) {
@@ -62,5 +64,7 @@ for(const file of loggingFiles) {
 		client.on(logs.name, (...args) => logs.execute(...args));
 	}
 }
+
+console.log("Loading "+loggingFiles.length+" logging functions")
 
 client.login(token);
