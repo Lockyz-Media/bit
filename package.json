@@ -1,6 +1,6 @@
 {
   "name": "bit-core",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "",
   "main": "bit.js",
   "scripts": {
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Lockyz-Dev/bit-core/issues"
   },
-  "homepage": "https://github.com/Lockyz-Dev/bit-core#readme"
+  "homepage": "https://github.com/Lockyz-Dev/bit-core#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "moment": "^2.29.4",
+    "moment-duration-format": "^2.3.2",
+    "ms": "^2.1.3"
+  }
 }
