@@ -8,7 +8,7 @@
 	},
 	"botIDs": {
 		"logs": "LOGGING ID",
-		"guild": "GUILD ID"
+		"guild": "GUILD ID",
 		"client": "CLIENT ID",
 		"owner": "OWNER ID"
 	},
