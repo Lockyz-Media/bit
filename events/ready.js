@@ -1,4 +1,4 @@
-const { Events } = require('discord.js');
+const { Events, ActivityType } = require('discord.js');
 const { embedColours, botIDs, activities, activity, status } = require('../config');
 
 module.exports = {
