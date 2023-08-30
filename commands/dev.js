@@ -12,6 +12,7 @@ module.exports = {
             de: 'Ausführen von Entwicklungsbefehlen.',
             fr: 'Exécutez les commandes de développement.',
         })
+        .setDMPermission(false)
         .addStringOption(option =>
             option.setName('function')
             .setNameLocalizations({

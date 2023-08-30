@@ -1,9 +1,21 @@
 {
-	"embecColor": "#8080",
-	"ownerID": "OWNER-ID",
-	"clientId": "BOT-ID",
-	"guildId": "GUILD-ID",
-	"token": "BOT-TOKEN",
-	"activity": "Bot created by Lockyz Dev",
-	"status": "online"
+	"embedColours": {
+		"positive": "#00FF1C",
+		"negative": "#FF0000",
+		"neutral": "#9013FE",
+		"main": "#86C1FD",
+		"secondary": "#50E3C2"
+	},
+	"botIDs": {
+		"logs": "LOGGING ID",
+		"guild": "GUILD ID",
+		"client": "CLIENT ID",
+		"owner": "OWNER ID"
+	},
+	"activity": {
+		"type": "custom, playing, listening, or watching",
+		"state": "The text that displays as the status",
+		"status": "online, idle, invisible or dnd"
+	},
+	"token": "BOT-TOKEN"
 }
