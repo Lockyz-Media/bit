@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { EmbedBuilder, version: discordVersion } = require('discord.js')
+const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -14,7 +13,8 @@ module.exports = {
         .setDescriptionLocalizations({
             de: 'Erhalten Sie erweiterte Informationen über den Bot.',
             fr: 'Obtenez des informations avancées sur le bot.',
-        }),
+        })
+        .setDMPermission(false),
 	async execute(interaction) {
         const client = interaction.client
         var lan = 'en'

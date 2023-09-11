@@ -1,7 +1,21 @@
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { token, clientSecret } = require('./config.json');
+const { token, clientSecret, botIDs } = require('./config.json');
+
+if(!token) {
+	console.log("Bit Core failed to start: Token is not defined.")
+	process.exit(1)
+}
+
+if(!botIDs.client) {
+	console.log("Bit Core failed to start: Client ID is not defined.")
+	process.exit(1)
+}
+
+if(!botIDs.owner) {
+	console.log("Owner ID is not defined, some bot functions will never work.")
+}
 
 const client = new Client({
 	intents: [
