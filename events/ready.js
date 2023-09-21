@@ -1,5 +1,5 @@
 const { Events, ActivityType } = require('discord.js');
-const { embedColours, botIDs, activities, } = require('../config');
+const { embedColours, botIDs, activities } = require('../config');
 
 module.exports = {
 	name: Events.ClientReady,
