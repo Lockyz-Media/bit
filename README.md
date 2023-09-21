@@ -8,6 +8,11 @@
 - Command Handler
 - Event Handler
 - Some small commands
+- Plugin System
+ - Able to use any "Bit Core Certified" plugin
 
-## Information about the 4.1.0 update
-The 4.1.0 update is a small patch to include the new configuration format *but with the deprecated values to help with backwards compatability* and the custom status system added to discord.js v14.13.0
+## Latest Changelog
+Bit Core 5.0.0
+- Removed code relating to the old "activities" system
+- A cool new plugin system
+ - Will introduce the new "Bit Core Certified" scheme in the future
