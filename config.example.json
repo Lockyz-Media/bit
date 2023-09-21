@@ -13,7 +13,6 @@
 		"owner": "OWNER ID"
 	},
 	"activities": {
-		"version": "old or new",
 		"type": "custom, playing, listening, or watching",
 		"state": "The text that displays as the status",
 		"status": "online, idle, invisible or dnd"
