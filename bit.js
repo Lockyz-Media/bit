@@ -66,6 +66,20 @@ for(const file of eventFiles) {
 }
 console.log("Loading "+eventFiles.length+" events")
 
+const pluginPath = path.join(__dirname, 'plugins');
+const pluginFiles = fs.readdirSync(pluginPath).filter(file => file.endsWith('.js'));
+
+for(const file of pluginFiles) {
+	const filePath = path.join(pluginPath, file);
+	const plugin = require(filePath);
+	if(plugin.once) {
+		client.once(plugin.name, (...args) => plugin.execute(...args));
+	} else {
+		client.on(plugin.name, (...args) => plugin.execute(...args));
+	}
+}
+console.log("Loading "+pluginFiles.length+" plugins")
+
 const loggingPath = path.join(__dirname, 'logging');
 const loggingFiles = fs.readdirSync(loggingPath).filter(file => file.endsWith('.js'));
 
