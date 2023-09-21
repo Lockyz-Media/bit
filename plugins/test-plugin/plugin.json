@@ -1,0 +1,7 @@
+{
+    "name": "Test Plugin",
+    "developer": "Robin Painter",
+    "support": "https://github.com/Lockyz-Dev/bit-core/issues",
+    "events": true,
+    "commands": true
+}
