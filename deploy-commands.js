@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, token, guildId } = require('./config.json');
+const { token, botIDs } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -21,7 +21,7 @@ const rest = new REST({ version: '10'}).setToken(token);
 		console.log(`Start refreshing ${commands.length} application (/) commands.`);
 
 		const data = await rest.put(
-			Routes.applicationCommands(clientId),
+			Routes.applicationCommands(client),
 			{ body: commands },
 		);
 
