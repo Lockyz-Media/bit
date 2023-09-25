@@ -165,6 +165,7 @@ module.exports = {
 				pluginList.push({
 					'name': pluginInfo.name,
 					'developer': pluginInfo.developer,
+					'version': pluginInfo.version,
 					'support': pluginInfo.support,
 					'hasEvents': pluginInfo.events,
 					'hasCommands': pluginInfo.commands
