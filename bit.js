@@ -142,4 +142,41 @@ if(pluginPath && plugins) {
 	console.log('No plugins found')
 }
 
+module.exports = {
+	countPlugins: function countPlugins() {
+		const pluginPath = "./plugins/";
+		const plugins = fs.readdirSync(pluginPath)
+		var pluginCount = plugins.length;
+
+		return pluginCount;
+	},
+
+	listAllPlugins: function listAllPlugins() {
+		var pluginList = []
+		var pluginNum = 0
+
+        const pluginPath = "./plugins/";
+        const plugins = fs.readdirSync(pluginPath)
+        var pluginCount = plugins.length
+
+        if(pluginPath && plugins) {
+	        for(const folder of plugins) {
+		        const pluginInfo = require("./plugins/"+folder+"/plugin.json")
+				pluginList.push({
+					'name': pluginInfo.name,
+					'developer': pluginInfo.developer,
+					'support': pluginInfo.support,
+					'hasEvents': pluginInfo.events,
+					'hasCommands': pluginInfo.commands
+				})
+                pluginNum += 1;
+            }
+
+            if(pluginNum === pluginCount) {
+				return pluginList;
+            }
+        }
+	}
+}
+
 client.login(token);
