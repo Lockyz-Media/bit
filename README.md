@@ -2,7 +2,7 @@
 ## Version Information
 | Current Version | Next Version |
 | :---: | :---: |
-| 4.1.0 | 5.0.0 |
+| 5.0.0 | 6.0.0 |
 
 ## Whats included in the core version?
 - Command Handler
