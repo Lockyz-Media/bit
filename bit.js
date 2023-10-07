@@ -76,23 +76,6 @@ if(eventsPath && eventFiles) {
 	console.log('No event files found in Bit: Core')
 }
 
-const loggingPath = path.join(__dirname, 'logging');
-const loggingFiles = fs.readdirSync(loggingPath).filter(file => file.endsWith('.js'));
-
-if(loggingPath && loggingFiles) {
-	for(const file of loggingFiles) {
-		const filePath = path.join(loggingPath, file);
-		const logs = require(filePath);
-		if(logs.once) {
-			client.once(logs.name, (...args) => logs.execute(...args));
-		} else {
-			client.on(logs.name, (...args) => logs.execute(...args));
-		}
-	}
-	
-	console.log("Loading "+loggingFiles.length+" logging functions")
-}
-
 const pluginPath = path.join(__dirname, 'plugins');
 const plugins = fs.readdirSync(pluginPath)
 //const pluginFiles = fs.readdirSync(pluginPath).filter(file => file.endsWith('.js'));

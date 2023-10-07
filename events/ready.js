@@ -38,7 +38,7 @@ module.exports = {
 		})
 
 		console.log('Status Set')
-		console.log('🟢 Bit Core: 4.1.0 Online! Logged in as '+ client.user.tag)
+		console.log('🟢 Bit Core: 5.0.0 Online! Logged in as '+ client.user.tag)
 		console.log('==== Have a good day! ====');
 	}
 }
