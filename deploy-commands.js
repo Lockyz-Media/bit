@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { clientId, token, guildId } = require('./config.json');
+const { token, botIDs } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -14,6 +14,25 @@ for(const file of commandFiles) {
 	commands.push(command.data.toJSON());
 }
 
+const pluginPath = path.join(__dirname, 'plugins');
+const plugins = fs.readdirSync(pluginPath)
+if(pluginPath && plugins) {
+	for(const folder of plugins) {
+		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
+		if(pluginInfo.commands) {
+			const pluginCommandsPath = pluginPath+"/"+folder+"/commands"
+			const pluginCommandFiles = fs.readdirSync(pluginCommandsPath).filter(file => file.endsWith('.js'));
+	
+			for(const file of pluginCommandFiles) {
+				//const filePath = path.join(pluginCommandsPath, file);
+				const command = require(pluginCommandsPath+`/${file}`);
+				console.log("Deploying command "+command.data.name)
+				commands.push(command.data.toJSON());
+			}
+		}
+	}
+}
+
 //Construct and prepare an instance of the REST module and deploy commands!
 const rest = new REST({ version: '10'}).setToken(token);
 (async () => {
@@ -21,7 +40,7 @@ const rest = new REST({ version: '10'}).setToken(token);
 		console.log(`Start refreshing ${commands.length} application (/) commands.`);
 
 		const data = await rest.put(
-			Routes.applicationCommands(clientId),
+			Routes.applicationCommands(botIDs.client),
 			{ body: commands },
 		);
 
