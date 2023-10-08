@@ -2,6 +2,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, botIDs } = require('./config.json');
+const fetch = require('node-fetch');
 
 if(!token) {
 	console.log("Bit Core failed to start: Token is not defined.")
@@ -86,6 +87,24 @@ if(pluginPath && plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
+		if(pluginInfo.updateURL) {
+			let url = pluginInfo.updateURL;
+			let update = ""
+
+			let settings = { method = "Get" };
+			fetch(url, settings)
+				.then(res => res.json())
+				.then((json) => {
+					update = json.latest
+					if(!pluginInfo.version === update) {
+						console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
+						console.log("Installed Version: "+pluginInfo.version)
+						console.log("Latest Version: "+update)
+					}
+				})
+		} else {
+			console.log("Plugin "+pluginInfo.name+" does not include an updateURL and may be outdated.")
+		}
 	
 		if(pluginInfo.commands === "true") {
 			const commandsPath = pluginPath+"/"+folder+"/commands"

@@ -3,6 +3,7 @@
     "developer": "Robin Painter",
     "version": "0.1.0",
     "support": "https://github.com/Lockyz-Dev/bit-core/issues",
-    "events": true,
-    "commands": true
+    "updateURL": "https://cdn.lockyzdev.net/bit/plugins/xp/update.json",
+    "events": "true",
+    "commands": "true"
 }
