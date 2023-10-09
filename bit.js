@@ -2,7 +2,10 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, botIDs } = require('./config.json');
-const fetch = require('node-fetch');
+//const fetch = require('node-fetch');
+//import fetch from 'node-fetch';
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 
 if(!token) {
 	console.log("Bit Core failed to start: Token is not defined.")
@@ -91,8 +94,8 @@ if(pluginPath && plugins) {
 			let url = pluginInfo.updateURL;
 			let update = ""
 
-			let settings = { method = "Get" };
-			fetch(url, settings)
+			//let settings = { method = "Get" };
+			fetch(url)
 				.then(res => res.json())
 				.then((json) => {
 					update = json["5.2"]
