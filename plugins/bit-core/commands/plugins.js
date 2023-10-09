@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
-const bit = require('./../../../bit.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,7 +11,7 @@ module.exports = {
 		.setDescription('List all plugins available within the bot')
         .setDMPermission(true),
 	async execute(interaction) {
-
+        
         var pluginNum = 0;
         var pluginCount;
         function countPlugins() {
