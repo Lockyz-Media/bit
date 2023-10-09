@@ -1,6 +1,6 @@
 {
   "name": "bit-core",
-  "version": "4.1.0",
+  "version": "5.1.1",
   "description": "Bit Core is a bot framework developed by Lockyz Dev",
   "main": "bit.js",
   "scripts": {

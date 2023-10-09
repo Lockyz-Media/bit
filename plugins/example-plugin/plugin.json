@@ -2,6 +2,7 @@
     "name": "Example Plugin",
     "developer": "Robin Painter",
     "version": "0.1.0",
+    "bitVersion": "5.1.x",
     "support": "https://github.com/Lockyz-Dev/bit-core/issues",
     "updateURL": "https://cdn.lockyzdev.net/bit/plugins/xp/update.json",
     "events": "true",

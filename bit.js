@@ -79,11 +79,10 @@ if(eventsPath && eventFiles) {
 
 const pluginPath = path.join(__dirname, 'plugins');
 const plugins = fs.readdirSync(pluginPath)
-//const pluginFiles = fs.readdirSync(pluginPath).filter(file => file.endsWith('.js'));
+console.log("Loading "+plugins.length+" plugins")
 
 if(pluginPath && plugins) {
 	for(const folder of plugins) {
-		//const pluginInfo = fs.readdirSync(pluginPath).filter(file => file.name('plugin.js'));
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
@@ -96,14 +95,27 @@ if(pluginPath && plugins) {
 				.then(res => res.json())
 				.then((json) => {
 					update = json.latest
-					if(!pluginInfo.version === update) {
-						console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
-						console.log("Installed Version: "+pluginInfo.version)
-						console.log("Latest Version: "+update)
+					if(json.bitVersion === "5.1.x" || json.bitVersion === "5.1.1") {
+						if(!pluginInfo.version === update) {
+							console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
+							console.log("Installed Version: "+pluginInfo.version)
+							console.log("Latest Version: "+update)
+							console.log("Update from "+json.downloadLink)
+						}
 					}
 				})
 		} else {
 			console.log("Plugin "+pluginInfo.name+" does not include an updateURL and may be outdated.")
+		}
+
+		if(pluginInfo.bitVersion) {
+			if(pluginInfo.bitVersion === "5.1.x" || pluginInfo.bitVersion === "5.1.1") {
+
+			} else {
+				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there may be compatability issues.")
+			}
+		} else {
+			console.log("Plugin "+pluginInfo.name+" does not specify a Bit: Core version, it may have been built for an older version of the bot.")
 		}
 	
 		if(pluginInfo.commands === "true") {
@@ -120,7 +132,6 @@ if(pluginPath && plugins) {
 					console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 				}
 			}
-			console.log("Loading "+commandFiles.length+" commands in the "+pluginInfo.name+" plugin")
 		}
 	
 		if(pluginInfo.events === "true") {
@@ -136,10 +147,8 @@ if(pluginPath && plugins) {
 					client.on(event.name, (...args) => event.execute(...args));
 				}
 			}
-			console.log("Loading "+eventFiles.length+" events in the "+pluginInfo.name+" plugin")
 		}
 	}
-	console.log("Loading "+plugins.length+" plugins")
 } else {
 	console.log('No plugins found')
 }
