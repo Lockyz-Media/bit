@@ -6,5 +6,5 @@
     "support": "https://github.com/Lockyz-Dev/bit-core/issues",
     "updateURL": "https://cdn.lockyzdev.net/bit/plugins/core/update.json",
     "events": "false",
-    "commands": "false"
+    "commands": "true"
 }

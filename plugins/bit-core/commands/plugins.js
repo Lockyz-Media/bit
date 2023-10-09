@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
-const bit = require('../bit.js');
+const bit = require('./../../../bit.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -32,7 +32,7 @@ module.exports = {
     
             if(pluginPath && plugins) {
                 for(const folder of plugins) {
-                    const pluginInfo = require("../plugins/"+folder+"/plugin.json")
+                    const pluginInfo = require("./../../"+folder+"/plugin.json")
                     pluginList.push({
                         'name': pluginInfo.name,
                         'developer': pluginInfo.developer,
