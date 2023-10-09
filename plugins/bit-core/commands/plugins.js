@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
-const bit = require('../bit.js');
+const bit = require('./bit.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
