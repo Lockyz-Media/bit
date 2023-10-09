@@ -94,8 +94,9 @@ if(pluginPath && plugins) {
 			fetch(url, settings)
 				.then(res => res.json())
 				.then((json) => {
-					update = json.latest
-					if(json.bitVersion === "5.1.x" || json.bitVersion === "5.1.1") {
+					update = json["5.2"]
+
+					if(update) {
 						if(!pluginInfo.version === update) {
 							console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
 							console.log("Installed Version: "+pluginInfo.version)
@@ -109,8 +110,7 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.bitVersion) {
-			if(pluginInfo.bitVersion === "5.1.x" || pluginInfo.bitVersion === "5.1.1") {
-
+			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x") {
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there may be compatability issues.")
 			}
