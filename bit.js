@@ -61,10 +61,15 @@ if(eventsPath && eventFiles) {
 const pluginPath = path.join(__dirname, 'plugins');
 const plugins = fs.readdirSync(pluginPath)
 console.log("Loading "+plugins.length+" plugins")
+var noCore = true;
 
 if(pluginPath && plugins) {
 	for(const folder of plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
+		if(pluginInfo.name === "Bit Core") {
+			noCore = false;
+		}
+
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
 		if(pluginInfo.updateURL) {
@@ -132,6 +137,10 @@ if(pluginPath && plugins) {
 	}
 } else {
 	console.log('No plugins found')
+}
+
+if(noCore === true) {
+	console.log("Bot failed to start: Bit Core was not found, please redownload the bot.")
 }
 
 module.exports = {
