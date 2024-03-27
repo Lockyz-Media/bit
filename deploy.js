@@ -4,15 +4,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const commands = [];
-//Grab all the command files from the commands directory
-/*const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-//Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
-for(const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	commands.push(command.data.toJSON());
-}*/
 
 const pluginPath = path.join(__dirname, 'plugins');
 const plugins = fs.readdirSync(pluginPath)
@@ -29,10 +20,10 @@ if(pluginPath && plugins) {
 				console.log("Plugin has no commands but is trying to load commands. Skipping!")
 			} else {
 				for(const file of pluginCommandFiles) {
-					//const filePath = path.join(pluginCommandsPath, file);
 					const command = require(pluginCommandsPath+`/${file}`);
 					console.log("Deploying command "+command.data.name)
 					//commands.push(command.data.toJSON());
+					
 					const commandJSON = command.data.toJSON();
 					var integrationTypes = [];
 					var contextTypes = [];

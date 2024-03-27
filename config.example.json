@@ -17,5 +17,6 @@
 		"state": "The text that displays as the status",
 		"status": "online, idle, invisible or dnd"
 	},
+	"guildOnly": false,
 	"token": "BOT-TOKEN"
 }
