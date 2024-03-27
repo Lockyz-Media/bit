@@ -19,16 +19,24 @@ const plugins = fs.readdirSync(pluginPath)
 if(pluginPath && plugins) {
 	for(const folder of plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
+		console.log("Checking if "+pluginInfo.name+" has commands!")
 		if(pluginInfo.commands) {
+			console.log("Searching "+pluginInfo.name+"/commands for commands!")
 			const pluginCommandsPath = pluginPath+"/"+folder+"/commands"
 			const pluginCommandFiles = fs.readdirSync(pluginCommandsPath).filter(file => file.endsWith('.js'));
-	
-			for(const file of pluginCommandFiles) {
-				//const filePath = path.join(pluginCommandsPath, file);
-				const command = require(pluginCommandsPath+`/${file}`);
-				console.log("Deploying command "+command.data.name)
-				commands.push(command.data.toJSON());
+
+			if(pluginCommandFiles.length === 0) {
+				console.log("Plugin has no commands but is trying to load commands. Skipping!")
+			} else {
+				for(const file of pluginCommandFiles) {
+					//const filePath = path.join(pluginCommandsPath, file);
+					const command = require(pluginCommandsPath+`/${file}`);
+					console.log("Deploying command "+command.data.name)
+					commands.push(command.data.toJSON());
+				}
 			}
+		} else {
+			console.log("Plugin "+pluginInfo.name+" does not have commands!")
 		}
 	}
 }
