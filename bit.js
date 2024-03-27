@@ -87,6 +87,7 @@ if(pluginPath && plugins) {
 		if(pluginInfo.name === "Bit Core") {
 			noCore = false;
 		}
+		const compatible = true;
 
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
@@ -114,43 +115,48 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.bitVersion) {
-			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x") {
+			if(pluginInfo.bitVersion === "2024.1") {
 			} else {
-				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there may be compatability issues.")
+				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there WILL be compatability issues.")
+				compatible = false;
 			}
 		} else {
 			console.log("Plugin "+pluginInfo.name+" does not specify a Bit: Core version, it may have been built for an older version of the bot.")
 		}
-	
-		if(pluginInfo.commands === "true") {
-			const commandsPath = pluginPath+"/"+folder+"/commands"
-			const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-	
-			for(const file of commandFiles) {
-				const filePath = path.join(commandsPath, file);
-				const command = require(filePath);
-	
-				if('data' in command && 'execute' in command) {
-					client.commands.set(command.data.name, command);
-				} else {
-					console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+
+		if(compatible === true) {
+			if(pluginInfo.commands === true) {
+				const commandsPath = pluginPath+"/"+folder+"/commands"
+				const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+		
+				for(const file of commandFiles) {
+					const filePath = path.join(commandsPath, file);
+					const command = require(filePath);
+		
+					if('data' in command && 'execute' in command) {
+						client.commands.set(command.data.name, command);
+					} else {
+						console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+					}
 				}
 			}
-		}
-	
-		if(pluginInfo.events === "true") {
-			const eventsPath = pluginPath+"/"+folder+"/events"
-			const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-	
-			for(const file of eventFiles) {
-				const filePath = path.join(eventsPath, file);
-				const event = require(filePath);
-				if(event.once) {
-					client.once(event.name, (...args) => event.execute(...args));
-				} else {
-					client.on(event.name, (...args) => event.execute(...args));
+		
+			if(pluginInfo.events === true) {
+				const eventsPath = pluginPath+"/"+folder+"/events"
+				const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+		
+				for(const file of eventFiles) {
+					const filePath = path.join(eventsPath, file);
+					const event = require(filePath);
+					if(event.once) {
+						client.once(event.name, (...args) => event.execute(...args));
+					} else {
+						client.on(event.name, (...args) => event.execute(...args));
+					}
 				}
 			}
+		} else {
+			console.log(pluginInfo.name+" is not compatible with this version of Bit and has been skipped!")
 		}
 	}
 } else {

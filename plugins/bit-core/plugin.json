@@ -1,10 +1,11 @@
 {
     "name": "Bit Core",
     "developer": "Lockyz Media",
-    "version": "5.3",
-    "bitVersion": "5.3",
+    "version": "2024.1",
+    "bitVersion": "2024.1",
     "support": "https://github.com/Lockyz-Media/bit/issues",
     "updateURL": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
-    "events": "false",
-    "commands": "true"
+    "events": false,
+    "commands": true,
+    "listInPluginsCommand": true
 }
