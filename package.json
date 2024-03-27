@@ -1,21 +1,21 @@
 {
-  "name": "bit-core",
-  "version": "5.2.0",
-  "description": "Bit Core is a bot framework developed by Lockyz Dev",
+  "name": "bit",
+  "version": "5.3",
+  "description": "Bit is a bot framework developed by Lockyz Media",
   "main": "bit.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lockyz-Dev/bit-core.git"
+    "url": "git+https://github.com/Lockyz-Media/bit.git"
   },
-  "author": "Lockyz Dev",
+  "author": "Lockyz Media",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Lockyz-Dev/bit-core/issues"
+    "url": "https://github.com/Lockyz-Media/bit/issues"
   },
-  "homepage": "https://github.com/Lockyz-Dev/bit-core#readme",
+  "homepage": "https://github.com/Lockyz-Media/bit#readme",
   "dependencies": {
     "discord.js": "^14.14.1",
     "node-fetch": "^3.3.2",
