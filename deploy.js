@@ -32,7 +32,24 @@ if(pluginPath && plugins) {
 					//const filePath = path.join(pluginCommandsPath, file);
 					const command = require(pluginCommandsPath+`/${file}`);
 					console.log("Deploying command "+command.data.name)
-					commands.push(command.data.toJSON());
+					//commands.push(command.data.toJSON());
+					const commandJSON = command.data.toJSON();
+					var integrationTypes = [];
+
+					if(command.integration_types.user === true || command.integration_types.guild === true) {
+						if(command.integration_types.user === true) {
+							integrationTypes.push(1);
+						}
+	
+						if(command.integration_types.guild === true) {
+							integrationTypes.push(0);
+						}
+					} else {
+						integrationTypes.push(0);
+					}
+
+					commandJSON.integration_types = integrationTypes;
+					commands.push(commandJSON);
 				}
 			}
 		} else {

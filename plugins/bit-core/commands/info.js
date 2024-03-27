@@ -3,6 +3,12 @@ const moment = require('moment');
 require('moment-duration-format');
 
 module.exports = {
+    // Sets if the command can be used with the bot as a user-installed app or a guild-installed app.
+    integration_types: {
+        user: false,
+        guild: true,
+    },
+
 	data: new SlashCommandBuilder()
 		.setName('info')
         .setNameLocalizations({

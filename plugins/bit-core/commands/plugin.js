@@ -13,8 +13,8 @@ module.exports = {
     },
 
 	data: new SlashCommandBuilder()
-		.setName('plugins')
-		.setDescription('List all plugins available within the bot')
+		.setName('plugin')
+		.setDescription('Get information on a specific plugin')
         .setDMPermission(true),
 	async execute(interaction) {
         
