@@ -10,6 +10,13 @@ module.exports = {
         guild: true,
     },
 
+    // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
+    context_types: {
+		guildChannel: true,
+		botDM: true,
+		privateChannel: true,
+	},
+
 	data: new SlashCommandBuilder()
 		.setName('info')
         .setNameLocalizations({

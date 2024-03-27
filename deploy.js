@@ -35,6 +35,7 @@ if(pluginPath && plugins) {
 					//commands.push(command.data.toJSON());
 					const commandJSON = command.data.toJSON();
 					var integrationTypes = [];
+					var contextTypes = [];
 
 					if(command.integration_types.user === true || command.integration_types.guild === true) {
 						if(command.integration_types.user === true) {
@@ -48,7 +49,25 @@ if(pluginPath && plugins) {
 						integrationTypes.push(0);
 					}
 
+					if(command.context_types.guildChannel === true || command.context_types.botDM === true || command.context_types.privateChannel === true ) {
+						if(command.context_types.guildChannel === true) {
+							contextTypes.push(0);
+						}
+
+						if(command.context_types.botDM === true) {
+							contextTypes.push(1);
+						}
+
+						// Technically does not apply if the command does not work when bot is used as a user-installable app
+						if(command.context_types.privateChannel === true && command.integration_types.user === true) {
+							contextTypes.push(2);
+						}
+					} else {
+						contextTypes.push(0);
+					}
+
 					commandJSON.integration_types = integrationTypes;
+					commandJSON.contexts = contextTypes;
 					commands.push(commandJSON);
 				}
 			}
