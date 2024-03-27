@@ -18,5 +18,6 @@
 		"status": "online, idle, invisible or dnd"
 	},
 	"guildOnly": false,
+	"language": "en",
 	"token": "BOT-TOKEN"
 }

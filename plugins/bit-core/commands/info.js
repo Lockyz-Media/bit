@@ -1,6 +1,7 @@
 const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
+const language = require('./config.json')
 
 module.exports = {
     cooldown: 5,
@@ -31,7 +32,7 @@ module.exports = {
         .setDMPermission(false),
 	async execute(interaction) {
         const client = interaction.client
-        var lan = 'en'
+        var lan = language;
         const locale = require('../locale/'+lan+'.json')
 
         const botUptime = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
