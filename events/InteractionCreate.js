@@ -1,10 +1,12 @@
 const { Events } = require('discord.js');
+const { devmode, language } = require('../config.json');
 
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
-        var lan = 'en'
+        var lan = language;
         const locale = require('../locale/'+lan+'.json')
+
         if(interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName);
 
@@ -12,6 +14,10 @@ module.exports = {
                 console.error(locale.error.noCommandFound.replace('{command}', interaction.commandName));
                 interaction.reply({ content: locale.error.noCommandFound.replace('{command}', interaction.commandName) });
                 return;
+            }
+
+            if(devmode === true) {
+                console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
             }
 
             try {
@@ -37,6 +43,10 @@ module.exports = {
                 console.error(locale.error.noCommandFound.replace('{command}', interaction.commandName));
                 interaction.reply({ content: locale.error.noCommandFound.replace('{command}', interaction.commandName) });
                 return;
+            }
+
+            if(devmode === true) {
+                console.log(locale.debug.devmode.autocompleteuse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
             }
     
             try {

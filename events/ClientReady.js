@@ -1,10 +1,12 @@
 const { Events, ActivityType } = require('discord.js');
-const { embedColours, botIDs, activities } = require('../config');
+const { embedColours, botIDs, activities, language, devmode } = require('../config');
 
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
 	execute(client) {
+		var lan = language;
+        const locale = require('../locale/'+lan+'.json')
 		var statusActivityType = ActivityType.Playing
 		var statusActivityName = "string"
 		var statusActivityState = "string"
@@ -37,8 +39,14 @@ module.exports = {
 			status: activityStatus
 		})
 
-		console.log('Status Set')
-		console.log('🟢 Bit 5.3 Online! Logged in as '+ client.user.tag)
-		console.log('==== Have a good day! ====');
+		if(devmode === true) {
+			console.log(locale.debug.devmode.statusset)
+		}
+
+		console.log(locale.misc.login+ client.user.tag)
+		console.log(locale.misc.welcome)
+		if(devmode === true) {
+			console.log(locale.debug.devmode.warning);
+		}
 	}
 }

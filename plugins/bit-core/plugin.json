@@ -5,7 +5,7 @@
     "bitVersion": "2024.1",
     "support": "https://github.com/Lockyz-Media/bit/issues",
     "updateURL": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
-    "events": false,
+    "events": true,
     "commands": true,
     "listInPluginsCommand": true
 }

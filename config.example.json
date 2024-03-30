@@ -19,5 +19,6 @@
 	},
 	"guildOnly": false,
 	"language": "en",
+	"devmode": true,
 	"token": "BOT-TOKEN"
 }
