@@ -16,15 +16,16 @@ module.exports = {
                 return;
             }
 
-            if(devmode === true) {
-                console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
-            }
-
             try {
                 if(!interaction.guild) {
-                    interaction.reply({ content: locale.error.notGuild })
-                    return;
+                    if(devmode === true) {
+                        console.log(locale.debug.devmode.commanduseusenotguild.replace('{command}', interaction.commandName));
+                    }
+                    await command.execute(interaction);
                 } else {
+                    if(devmode === true) {
+                        console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
+                    }
                     await command.execute(interaction);
                 }
             } catch (error) {

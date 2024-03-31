@@ -33,6 +33,7 @@
         "devmode": {
             "warning": "Dev mode has been enabled, expect extra logs!",
             "commanduse": "User {username} has used the {command} command!",
+            "commanduseusenotguild": "{command} command has been used. The user cannot be determined (command was likely not used within a guild)",
             "autocompleteuse": "User {username} has used the {command} command's autocomplete!",
             "statusset": "The status has been set!",
             "guildadd": "The bot has been added to a guild named {guildname} with an ID of {guildid}!",
