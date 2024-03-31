@@ -1,5 +1,6 @@
 {
     "name": "Bit Core",
+    "id": "bit-core",
     "developer": "Lockyz Media",
     "version": "2024.1",
     "bitVersion": "2024.1",
@@ -7,5 +8,8 @@
     "updateURL": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
     "events": true,
     "commands": true,
-    "listInPluginsCommand": true
+    "listInPluginsCommand": true,
+    "requirements": {
+        
+    }
 }

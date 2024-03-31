@@ -8,17 +8,17 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 
 if(!token) {
-	console.log("Bit Core failed to start: Token is not defined.")
+	console.log('\e[0;31m', "Bit Core failed to start: Token is not defined.")
 	process.exit(1)
 }
 
 if(!botIDs.client) {
-	console.log("Bit Core failed to start: Client ID is not defined.")
+	console.log('\e[0;31m', "Bit Core failed to start: Client ID is not defined.")
 	process.exit(1)
 }
 
 if(!botIDs.owner) {
-	console.log("Owner ID is not defined, some bot functions will never work.")
+	console.log('\e[0;31m', "Owner ID is not defined, some bot functions will never work.")
 }
 
 const client = new Client({
@@ -69,9 +69,19 @@ var noCore = true;
 if(pluginPath && plugins) {
 	for(const folder of plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
-		if(pluginInfo.name === "Bit Core") {
-			noCore = false;
+		if(pluginInfo.id === "bit-core") {
+			if(noCore === false) {
+				console.log("A plugin is calling itself bit core, but bit core is already installed. Bit will now close!")
+				process.exit(1);
+			} else {
+				noCore = false;
+			}
 		}
+
+		if(pluginInfo.id === "example-plugin") {
+			console.log(`The plugin with the name ${pluginInfo.name} has the ID 'example-plugin'. This means the developer has likely not updated their plugin.json and things may not work as intended!`)
+		}
+
 		const compatible = true;
 
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
