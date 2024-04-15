@@ -13,16 +13,9 @@
 		"owner": "OWNER ID"
 	},
 	"activities": {
-		"version": "old or new",
 		"type": "custom, playing, listening, or watching",
 		"state": "The text that displays as the status",
 		"status": "online, idle, invisible or dnd"
 	},
-	"embedColor": "#8080",
-	"ownerID": "OWNER-ID",
-	"clientId": "BOT-ID",
-	"guildId": "GUILD-ID",
-	"token": "BOT-TOKEN",
-	"activity": "Bot created by Lockyz Dev",
-	"status": "online"
+	"token": "BOT-TOKEN"
 }

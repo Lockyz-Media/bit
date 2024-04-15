@@ -1,0 +1,10 @@
+{
+    "name": "Bit Core",
+    "developer": "Robin Painter",
+    "version": "5.2.0",
+    "bitVersion": "5.2.0",
+    "support": "https://github.com/Lockyz-Dev/bit-core/issues",
+    "updateURL": "https://cdn.lockyzdev.net/bit/plugins/core/update.json",
+    "events": "false",
+    "commands": "true"
+}
