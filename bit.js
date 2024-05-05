@@ -86,37 +86,36 @@ if(pluginPath && plugins) {
 
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
-		if(pluginInfo.updateURL) {
-			let url = pluginInfo.updateURL;
+		if(pluginInfo.update_url) {
+			let url = pluginInfo.update_url;
 			let update = ""
 
-			//let settings = { method = "Get" };
 			fetch(url)
 				.then(res => res.json())
 				.then((json) => {
-					update = json["2024.1"]
+					update = json.bit_versions["2024.1"]
 
 					if(update) {
 						if(!pluginInfo.version === update) {
 							console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
 							console.log("Installed Version: "+pluginInfo.version)
 							console.log("Latest Version: "+update)
-							console.log("Update from "+json.downloadLink)
+							console.log("Update from "+json.download_link)
 						}
 					}
 				})
 		} else {
-			console.log("Plugin "+pluginInfo.name+" does not include an updateURL and may be outdated.")
+			console.log("Plugin "+pluginInfo.name+" does not include an update_url and may be outdated.")
 		}
 
-		if(pluginInfo.bitVersion) {
-			if(pluginInfo.bitVersion === "2024.1") {
+		if(pluginInfo.requirements.bit) {
+			if(pluginInfo.requirements.bit === "2024.1.0") {
 			} else {
-				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there WILL be compatability issues.")
+				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
 				compatible = false;
 			}
 		} else {
-			console.log("Plugin "+pluginInfo.name+" does not specify a Bit: Core version, it may have been built for an older version of the bot.")
+			console.log("Plugin "+pluginInfo.name+" does not specify a Bit version, it may have been built for an older version of the bot.")
 		}
 
 		if(compatible === true) {
