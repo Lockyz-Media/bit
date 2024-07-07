@@ -109,13 +109,15 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.requirements.bit) {
-			if(pluginInfo.requirements.bit === "2024.1.0") {
+			if(pluginInfo.requirements.bit.version === "2024.1.0") {
+				compatible = true;
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
 				compatible = false;
 			}
 		} else {
 			console.log("Plugin "+pluginInfo.name+" does not specify a Bit version, it may have been built for an older version of the bot.")
+			compatible = false;
 		}
 
 		if(compatible === true) {
