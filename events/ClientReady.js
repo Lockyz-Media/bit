@@ -44,9 +44,9 @@ module.exports = {
 		}
 
 		console.log(locale.misc.login+ client.user.tag)
-		console.log(locale.misc.welcome)
 		if(devmode === true) {
 			console.log(locale.debug.devmode.warning);
 		}
+		console.log("==== Welcome to Bit! ====")
 	}
 }
