@@ -6,6 +6,20 @@ const moment = require('moment');
 require('moment-duration-format');
 
 module.exports = {
+    cooldown: 5,
+    // Sets if the command can be used with the bot as a user-installed app or a guild-installed app.
+    integration_types: {
+        user: true,
+        guild: true,
+    },
+
+    // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
+    context_types: {
+		guildChannel: true,
+		botDM: true,
+		privateChannel: true,
+	},
+
 	data: new SlashCommandBuilder()
 		.setName('plugins')
 		.setDescription('List all plugins available within the bot')
@@ -32,14 +46,17 @@ module.exports = {
             if(pluginPath && plugins) {
                 for(const folder of plugins) {
                     const pluginInfo = require("./../../"+folder+"/plugin.json")
-                    pluginList.push({
-                        'name': pluginInfo.name,
-                        'developer': pluginInfo.developer,
-                        'version': pluginInfo.version,
-                        'support': pluginInfo.support,
-                        'hasEvents': pluginInfo.events,
-                        'hasCommands': pluginInfo.commands
-                    })
+                    if(pluginInfo.list_in_plugins_command === true) {
+                        pluginList.push({
+                            'name': pluginInfo.name,
+                            'developer': pluginInfo.developer,
+                            'version': pluginInfo.version,
+                            'support': pluginInfo.support,
+                            'hasEvents': pluginInfo.events,
+                            'hasCommands': pluginInfo.commands
+                        })
+                    }
+                    
                     pluginNum += 1;
                 }
     
