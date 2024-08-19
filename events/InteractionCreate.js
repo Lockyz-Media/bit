@@ -24,7 +24,7 @@ module.exports = {
                     await command.execute(interaction);
                 } else {
                     if(devmode === true) {
-                        console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
+                        console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
                     }
                     await command.execute(interaction);
                 }
@@ -47,7 +47,7 @@ module.exports = {
             }
 
             if(devmode === true) {
-                console.log(locale.debug.devmode.autocompleteuse.replace('{command}', interaction.commandName).replace('{username}', interaction.author.username));
+                console.log(locale.debug.devmode.autocompleteuse.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
             }
     
             try {
