@@ -82,7 +82,7 @@ if(pluginPath && plugins) {
 			console.log(`The plugin with the name ${pluginInfo.name} has the ID 'example-plugin'. This means the developer has likely not updated their plugin.json and things may not work as intended!`)
 		}
 
-		const compatible = true;
+		var compatible = true;
 
 		console.log("Loading "+pluginInfo.name+" made by "+pluginInfo.developer)
 		client.plugins.set(pluginInfo.name)
@@ -154,7 +154,8 @@ if(pluginPath && plugins) {
 
 			if(pluginInfo.hasIndex) {
 				if(pluginInfo.mainFile) {
-					require(pluginPath).fork(pluginInfo.mainFile)
+					var plugin = require(pluginPath+"/"+folder+"/index");
+					plugin.startFunction();
 				} else {
 					console.log(`[WARNING] The plugin ${pluginInfo.name} tried to start a file that doesn't exist!`)
 				}
