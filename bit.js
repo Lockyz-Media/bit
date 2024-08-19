@@ -154,7 +154,7 @@ if(pluginPath && plugins) {
 
 			if(pluginInfo.hasIndex) {
 				if(pluginInfo.mainFile) {
-					var plugin = require(pluginPath+"/"+folder+"/index");
+					var plugin = require(pluginPath+"/"+folder+"/"+pluginInfo.mainFile);
 					plugin.startFunction();
 				} else {
 					console.log(`[WARNING] The plugin ${pluginInfo.name} tried to start a file that doesn't exist!`)
