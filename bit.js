@@ -151,6 +151,14 @@ if(pluginPath && plugins) {
 					}
 				}
 			}
+
+			if(pluginInfo.hasIndex) {
+				if(pluginInfo.mainFile) {
+					require(pluginPath).fork(pluginInfo.mainFile)
+				} else {
+					console.log(`[WARNING] The plugin ${pluginInfo.name} tried to start a file that doesn't exist!`)
+				}
+			}
 		} else {
 			console.log(pluginInfo.name+" is not compatible with this version of Bit and has been skipped!")
 		}
