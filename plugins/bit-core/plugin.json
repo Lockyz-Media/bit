@@ -7,6 +7,8 @@
     "update_url": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
     "events": true,
     "commands": true,
+    "hasIndex": true,
+    "mainFile": "index.js",
     "list_in_plugins_command": true,
     "requirements": {
         "bit": {
