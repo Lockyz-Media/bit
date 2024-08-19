@@ -1,6 +1,6 @@
 {
   "name": "bit",
-  "version": "5.3",
+  "version": "2024.1",
   "description": "Bit is a bot framework developed by Lockyz Media",
   "main": "bit.js",
   "scripts": {
