@@ -1,6 +1,6 @@
 {
   "name": "bit",
-  "version": "2024.1",
+  "version": "2024.1.1",
   "description": "Bit is a bot framework developed by Lockyz Media",
   "main": "bit.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/Lockyz-Media/bit.git"
   },
   "author": "Lockyz Media",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/Lockyz-Media/bit/issues"
   },
