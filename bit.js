@@ -94,27 +94,25 @@ if(pluginPath && plugins) {
 			let url = pluginInfo.updateURL;
 			let update = ""
 
-			//let settings = { method = "Get" };
-			fetch(url)
-				.then(res => res.json())
-				.then((json) => {
-					update = json["5.2"]
-
-					if(update) {
-						if(!pluginInfo.version === update) {
-							console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
-							console.log("Installed Version: "+pluginInfo.version)
-							console.log("Latest Version: "+update)
-							console.log("Update from "+json.downloadLink)
-						}
-					}
-				})
+			let settings = { method: "Get" };
+			fetch(url, settings)
+			.then(res => res.json())
+			.then((json) => {
+				update = json["5.2"]
+				if(update === pluginInfo.version) {
+				} else {
+					console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
+					console.log("Installed Version: "+pluginInfo.version)
+					console.log("Latest Version: "+update)
+					console.log("Update from "+json.downloadLink)
+				}
+			})
 		} else {
 			console.log("Plugin "+pluginInfo.name+" does not include an updateURL and may be outdated.")
 		}
 
 		if(pluginInfo.bitVersion) {
-			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x") {
+			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x" || pluginInfo.bitVersion === "5.2" || pluginInfo.bitVersion === "5.2.2") {
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there may be compatability issues.")
 			}

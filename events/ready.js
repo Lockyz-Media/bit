@@ -45,22 +45,26 @@ module.exports = {
 		let url = bit_updates;
 		let settings = { method: "Get" };
 		fetch(url, settings)
-			.then(res => res.json())
-			.then((json) => {
-				if(res.stable.bit === versionInfo.bit_version) {
+		.then(res => res.json())
+		.then((json) => {
+			update = json.minor_versions["5.2"]
+			if(json.stable.bit === versionInfo.bit_version) {
+				if(json.latest.bit === versionInfo.bit_version) {
+					console.log("You're using an unstable version of Bit. Please exercise caution")
+				} else {
 					console.log("This version of Bit is NOT the latest stable version. It's HIGHLY recommended to update!")
 				}
+			}
+				
+			if(update.status === "eol") {
+				console.log("This version of Bit has reached End of Life. This means you will no longer get support nor security updates.")
+				console.log("Please update to the latest version of Bit as soon as possible!")
+			}
 
-				update = json.minor_versions[versionInfo.bit_version]
-				if(update.status === "eol") {
-					console.log("This version of Bit has reached End of Life. This means you will no longer get support nor security updates.")
-					console.log("Please update to the latest version of Bit as soon as possible!")
-				}
-
-				if(update.status === "eos") {
-					console.log("This version of Bit has reached End of Service. This means you will only recieve security updates!")
-					console.log("Please update to the latest version of Bit as soon as possible!")
-				}
-			})
+			if(update.status === "eos") {
+				console.log("This version of Bit has reached End of Service. This means you will only recieve security updates!")
+				console.log("Please update to the latest version of Bit as soon as possible!")
+			}
+		})
 	}
 }
