@@ -1,12 +1,12 @@
 const { Events, ActivityType } = require('discord.js');
-const { embedColours, botIDs, activities, language, devmode, bit_updates } = require('./../../config');
+const { embedColours, botIDs, activities, language, devmode, bit_updates } = require('../../../config.json');
 
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
 	execute(client) {
 		var lan = language;
-        const locale = require('../locale/'+lan+'.json')
+        const locale = require('../../../locale/'+lan+'.json')
 		var statusActivityType = ActivityType.Playing
 		var statusActivityName = "string"
 		var statusActivityState = "string"
@@ -54,8 +54,8 @@ module.exports = {
 		.then(res => res.json())
 		.then((json) => {
 			update = json.minor_versions["2024.1"]
-			if(json.stable.bit === versionInfo.bit_version) {
-				if(json.latest.bit === versionInfo.bit_version) {
+			if(json.stable.bit === "2024.1.1") {
+				if(json.latest.bit === "2024.1.1") {
 					console.log("You're using an unstable version of Bit. Please exercise caution")
 				} else {
 					console.log("This version of Bit is NOT the latest stable version. It's HIGHLY recommended to update!")
