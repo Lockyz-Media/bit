@@ -2,7 +2,7 @@
 ## Version Information
 | Current Version | Next Version |
 | :---: | :---: |
-| 5.2 | 2024.1 |
+| 2024.1 | 2024.2 |
 
 ## Whats included in this bot?
 - Command Handler
@@ -15,7 +15,7 @@
 You can find Bit Core Certified plugins within our [github organisation](https://github.com/Bit-Plugins)
 
 ## Latest Changelog
-Bit 2024.1
+Bit 2024.2
 - Updated the command handler to allow for user-installable apps
 - Added lanaguage option to the config file (defaults to English, currently only English is available but more will be supported in the future)
 - Added a devmode. Will log literally EVERYTHING the bot does!

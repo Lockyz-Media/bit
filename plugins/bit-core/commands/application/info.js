@@ -49,7 +49,7 @@ module.exports = {
                 { name: locale.misc.memory, value: `${Math.round(memUsage)} MB`, inline: true },
                 { name: locale.misc.discordJS, value: `v${discordVersion}`, inline: true },
                 { name: locale.misc.node, value: `${process.version}`, inline: true },
-                { name: locale.misc.version, value: "v5.2.1", inline: true },
+                { name: locale.misc.version, value: "v2024.2", inline: true },
             )
             .setFooter({ text: locale.misc.copyrightText.replace('{year}', n)});
         interaction.reply({ embeds: [embed] })

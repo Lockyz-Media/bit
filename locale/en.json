@@ -26,7 +26,7 @@
         "developer": "Developer",
         "xpDisabled": "The XP System is disabled through guild settings, a server owner should disable this command.",
         "privacyResponse": "This bot was created by Lockyz Media, we do not store any user information without prior consent. We also will not store any information for persons under the age of 13 as per Australian law.\nBy using our services you agree to the use of privatised data needed to access the Discord API. If you would like us to exclude you from any sort of data useage please DM our Admin \"Robin Painter\" and let them know.\n\nYou're welcome to view a more in-depth version of our privacy policy at: <https://lockyzmedia.com/privacy>",
-        "login": "🟢 Bit 2024.1 online! Logged in as ",
+        "login": "🟢 Bit 2024.2 online! Logged in as ",
         "welcome": "==== Welcome to Bit! ===="
     },
     "debug": {

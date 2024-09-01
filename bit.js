@@ -94,7 +94,7 @@ if(pluginPath && plugins) {
 			fetch(url, settings)
 			.then(res => res.json())
 			.then((json) => {
-				update = json.bit_versions["2024.1"]
+				update = json.bit_versions["2024.2"]
 				if(update === pluginInfo.version) {
 				} else {
 					console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
@@ -108,7 +108,7 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.requirements.bit) {
-			if(pluginInfo.requirements.bit.version === "2024.1.1" || pluginInfo.requirements.bit.version === "2024.1.0") {
+			if(pluginInfo.requirements.bit.version === "2024.2.0" || pluginInfo.requirements.bit.version === "2024.2.0") {
 				compatible = true;
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
@@ -121,7 +121,7 @@ if(pluginPath && plugins) {
 
 		if(compatible === true) {
 			if(pluginInfo.commands === true) {
-				const commandsPath = pluginPath+"/"+folder+"/commands"
+				const commandsPath = pluginPath+"/"+folder+"/commands/application"
 				const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 		
 				for(const file of commandFiles) {

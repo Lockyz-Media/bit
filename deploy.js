@@ -12,8 +12,8 @@ if(pluginPath && plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
 		console.log("Checking if "+pluginInfo.name+" has commands!")
 		if(pluginInfo.commands) {
-			console.log("Searching "+pluginInfo.name+"/commands for commands!")
-			const pluginCommandsPath = pluginPath+"/"+folder+"/commands"
+			console.log("Searching "+pluginInfo.name+"/commands/application for commands!")
+			const pluginCommandsPath = pluginPath+"/"+folder+"/commands/application"
 			const pluginCommandFiles = fs.readdirSync(pluginCommandsPath).filter(file => file.endsWith('.js'));
 
 			if(pluginCommandFiles.length === 0) {
@@ -22,7 +22,7 @@ if(pluginPath && plugins) {
 				for(const file of pluginCommandFiles) {
 					const command = require(pluginCommandsPath+`/${file}`);
 					console.log("Deploying command "+command.data.name)
-					//commands.push(command.data.toJSON());
+					//commands/application.push(command.data.toJSON());
 					
 					const commandJSON = command.data.toJSON();
 					var integrationTypes = [];
