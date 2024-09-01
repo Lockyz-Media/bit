@@ -23,14 +23,7 @@ if(!botIDs.owner) {
 
 const client = new Client({
 	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildModeration,
-		GatewayIntentBits.GuildInvites,
-		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildEmojisAndStickers,
 		
     ]
 })
