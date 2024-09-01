@@ -2,6 +2,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, botIDs } = require('./config.json');
+let pluginsFile = fs.readFileSync("/databases/bit/plugins.json","utf-8");
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -67,6 +68,40 @@ console.log("Loading "+plugins.length+" plugins")
 var noCore = true;
 
 if(pluginPath && plugins) {
+	for(const folder of plugins) {
+		const pluginFile = require(pluginPath+"/"+folder+"/plugin.json")
+		var pluginInfo = []
+		let pluginsInfoJs = JSON.parse(pluginsFile);
+
+		if(pluginFile.id) {
+			pluginInfo.id = pluginFile.id
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginFile.version) {
+			pluginInfo.version = pluginFile.version
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginFile.name) {
+			pluginInfo.name = pluginFile.version
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginInfo.disabled) {
+			pluginInfo.disabled = true
+		} else {
+			pluginInfo.disabled = false
+		}
+
+		pluginsInfoJs.push(pluginInfo)
+		pluginsFile = JSON.stringify(pluginsInfoJs);
+		fs.writeFileSync("/databases/bit/plugins.json",pluginsFile,"utf-8");
+	}
+	
 	for(const folder of plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
 		if(pluginInfo.id === "bit-core") {
