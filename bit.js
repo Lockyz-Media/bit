@@ -97,11 +97,12 @@ if(pluginPath && plugins) {
 			pluginInfo.disabled = false
 		}
 
+		pluginsInfoJs = Array.from(pluginsInfoJs);
 		pluginsInfoJs.push(pluginInfo)
 		pluginsFile = JSON.stringify(pluginsInfoJs);
 		fs.writeFileSync("/databases/bit/plugins.json",pluginsFile,"utf-8");
 	}
-	
+
 	for(const folder of plugins) {
 		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
 		if(pluginInfo.id === "bit-core") {
