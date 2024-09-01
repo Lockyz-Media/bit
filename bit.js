@@ -2,7 +2,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, botIDs } = require('./config.json');
-let pluginsFile = fs.readFileSync("/databases/bit/plugins.json","utf-8");
+let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -24,12 +24,6 @@ if(!botIDs.owner) {
 
 const client = new Client({
 	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildModeration,
-		GatewayIntentBits.GuildInvites,
-		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildEmojisAndStickers,
 		
@@ -67,11 +61,17 @@ const plugins = fs.readdirSync(pluginPath)
 console.log("Loading "+plugins.length+" plugins")
 var noCore = true;
 
+var jsonString = `{"plugins":[]}`
+fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+	if (err) throw err;
+  });
+
 if(pluginPath && plugins) {
 	for(const folder of plugins) {
 		const pluginFile = require(pluginPath+"/"+folder+"/plugin.json")
-		var pluginInfo = []
-		let pluginsInfoJs = JSON.parse(pluginsFile);
+		const pluginsjson = fs.readFileSync('./databases/bit/plugins.json');
+		const jsonData = JSON.parse(pluginsjson);
+		var pluginInfo = new Array()
 
 		if(pluginFile.id) {
 			pluginInfo.id = pluginFile.id
@@ -86,7 +86,7 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginFile.name) {
-			pluginInfo.name = pluginFile.version
+			pluginInfo.name = pluginFile.name
 		} else {
 			pluginInfo.disabled = true
 		}
@@ -97,10 +97,16 @@ if(pluginPath && plugins) {
 			pluginInfo.disabled = false
 		}
 
-		pluginsInfoJs = Array.from(pluginsInfoJs);
-		pluginsInfoJs.push(pluginInfo)
-		pluginsFile = JSON.stringify(pluginsInfoJs);
-		fs.writeFileSync("/databases/bit/plugins.json",pluginsFile,"utf-8");
+		jsonData.plugins.push({
+			name: pluginInfo.name,
+			id: pluginInfo.id,
+			version: pluginInfo.version,
+			disabled: pluginInfo.disabled
+		})
+		const jsonString = JSON.stringify(jsonData);
+		fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+			if (err) throw err;
+		  });
 	}
 
 	for(const folder of plugins) {
