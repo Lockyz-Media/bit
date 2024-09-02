@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { devmode, language } = require('../config.json');
+const { dev_mode, language } = require('../config.json');
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -11,20 +11,20 @@ module.exports = {
             const command = interaction.client.commands.get(interaction.commandName);
 
             if(!command) {
-                console.error(locale.error.noCommandFound.replace('{command}', interaction.commandName));
-                interaction.reply({ content: locale.error.noCommandFound.replace('{command}', interaction.commandName) });
+                console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
+                interaction.reply({ content: locale.error.no_command_found.replace('{command}', interaction.commandName) });
                 return;
             }
 
             try {
                 if(!interaction.guild) {
-                    if(devmode === true) {
-                        console.log(locale.debug.devmode.commanduseusenotguild.replace('{command}', interaction.commandName));
+                    if(dev_mode === true) {
+                        console.log(locale.debug.dev_mode.command.not_guild.replace('{command}', interaction.commandName));
                     }
                     await command.execute(interaction);
                 } else {
-                    if(devmode === true) {
-                        console.log(locale.debug.devmode.commanduse.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
+                    if(dev_mode === true) {
+                        console.log(locale.debug.dev_mode.command.use.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
                     }
                     await command.execute(interaction);
                 }
@@ -32,22 +32,22 @@ module.exports = {
                 console.error(error);
 
                 if(interaction.replied || interaction.deferred) {
-                    await interaction.followUp({ content: locale.error.commandError, ephemeral: true });
+                    await interaction.followUp({ content: locale.error.command_error, ephemeral: true });
                 } else {
-                    await interaction.reply({ content: locale.error.commandError, ephemeral: true });
+                    await interaction.reply({ content: locale.error.command_error, ephemeral: true });
                 }
             }
         } else if(interaction.isAutocomplete()) {
             const command = interaction.client.commands.get(interaction.commandName);
 
             if (!command) {
-                console.error(locale.error.noCommandFound.replace('{command}', interaction.commandName));
-                interaction.reply({ content: locale.error.noCommandFound.replace('{command}', interaction.commandName) });
+                console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
+                interaction.reply({ content: locale.error.no_command_found.replace('{command}', interaction.commandName) });
                 return;
             }
 
-            if(devmode === true) {
-                console.log(locale.debug.devmode.autocompleteuse.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
+            if(dev_mode === true) {
+                console.log(locale.debug.dev_mode.command.autocomplete.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
             }
     
             try {

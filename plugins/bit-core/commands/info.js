@@ -13,9 +13,9 @@ module.exports = {
 
     // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
     context_types: {
-		guildChannel: true,
-		botDM: true,
-		privateChannel: true,
+		guild_channel: true,
+		bot_dm: true,
+		private_channel: true,
 	},
 
 	data: new SlashCommandBuilder()
@@ -49,9 +49,9 @@ module.exports = {
                 { name: locale.misc.memory, value: `${Math.round(memUsage)} MB`, inline: true },
                 { name: locale.misc.discordJS, value: `v${discordVersion}`, inline: true },
                 { name: locale.misc.node, value: `${process.version}`, inline: true },
-                { name: locale.misc.version, value: "v5.2.1", inline: true },
+                { name: locale.misc.version, value: "v20.2.1", inline: true },
             )
-            .setFooter({ text: locale.misc.copyrightText.replace('{year}', n)});
+            .setFooter({ text: locale.misc.copyright.replace('{year}', n)});
         interaction.reply({ embeds: [embed] })
 	}
 };
