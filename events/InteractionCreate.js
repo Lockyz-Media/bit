@@ -1,11 +1,16 @@
 const { Events } = require('discord.js');
 const { dev_mode, language } = require('../config.json');
+const banned_users = require("../databases/bit-core/bannedUsers.json")
 
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
         var lan = language;
         const locale = require('../locale/'+lan+'.json')
+
+        if(banned_users[interaction.user.id]) {
+            return;
+        }
 
         if(interaction.isChatInputCommand()) {
             const command = interaction.client.commands.get(interaction.commandName);
