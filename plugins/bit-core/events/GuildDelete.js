@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { dev_mode, language } = require('../../../configs/bit-core/config.json');
+const { dev_mode, language } = require('../../../config.json');
 
 module.exports = {
     name: Events.GuildCreate,
