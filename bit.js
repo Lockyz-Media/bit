@@ -2,6 +2,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, bot_ids } = require('./config.json');
+let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -23,12 +24,6 @@ if(!bot_ids.owner) {
 
 const client = new Client({
 	intents: [
-		GatewayIntentBits.Guilds,
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildMessageReactions,
-		GatewayIntentBits.GuildModeration,
-		GatewayIntentBits.GuildInvites,
-		GatewayIntentBits.GuildPresences,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildEmojisAndStickers,
 		
@@ -66,11 +61,58 @@ const plugins = fs.readdirSync(plugin_path)
 console.log("Loading "+plugins.length+" plugins")
 var no_core = true;
 
-if(plugin_path && plugins) {
+var jsonString = `{"plugins":[]}`
+fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+	if (err) throw err;
+  });
+
+if(pluginPath && plugins) {
 	for(const folder of plugins) {
-		const plugin_info = require(plugin_path+"/"+folder+"/plugin.json")
-		if(plugin_info.id === "bit-core") {
-			if(no_core === false) {
+		const pluginFile = require(pluginPath+"/"+folder+"/plugin.json")
+		const pluginsjson = fs.readFileSync('./databases/bit/plugins.json');
+		const jsonData = JSON.parse(pluginsjson);
+		var pluginInfo = new Array()
+
+		if(pluginFile.id) {
+			pluginInfo.id = pluginFile.id
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginFile.version) {
+			pluginInfo.version = pluginFile.version
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginFile.name) {
+			pluginInfo.name = pluginFile.name
+		} else {
+			pluginInfo.disabled = true
+		}
+
+		if(pluginInfo.disabled) {
+			pluginInfo.disabled = true
+		} else {
+			pluginInfo.disabled = false
+		}
+
+		jsonData.plugins.push({
+			name: pluginInfo.name,
+			id: pluginInfo.id,
+			version: pluginInfo.version,
+			disabled: pluginInfo.disabled
+		})
+		const jsonString = JSON.stringify(jsonData);
+		fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+			if (err) throw err;
+		  });
+	}
+
+	for(const folder of plugins) {
+		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
+		if(pluginInfo.id === "bit-core") {
+			if(noCore === false) {
 				console.log("A plugin is calling itself bit core, but bit core is already installed. Bit will now close!")
 				process.exit(1);
 			} else {
