@@ -1,3 +1,5 @@
+# Bit 4.1.0 has reached EOL and this branch will be deleted in December 2024
+
 # Bit Core
 ## Version Information
 | Current Version | Next Version |
