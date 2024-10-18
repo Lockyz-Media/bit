@@ -25,40 +25,6 @@ if(plugin_path && plugins) {
 					//commands.push(command.data.toJSON());
 					
 					const command_json = command.data.toJSON();
-					var integration_types = [];
-					var context_types = [];
-
-					if(command.integration_types.user === true || command.integration_types.guild === true) {
-						if(command.integration_types.user === true) {
-							integration_types.push(1);
-						}
-	
-						if(command.integration_types.guild === true) {
-							integration_types.push(0);
-						}
-					} else {
-						integration_types.push(0);
-					}
-
-					if(command.context_types.guild_channel === true || command.context_types.bot_dm === true || command.context_types.private_channel === true ) {
-						if(command.context_types.guild_channel === true) {
-							context_types.push(0);
-						}
-
-						if(command.context_types.bot_dm === true) {
-							context_types.push(1);
-						}
-
-						// Technically does not apply if the command does not work when bot is used as a user-installable app
-						if(command.context_types.private_channel === true && command.integration_types.user === true) {
-							context_types.push(2);
-						}
-					} else {
-						context_types.push(0);
-					}
-
-					command_json.integration_types = integration_types;
-					command_json.contexts = context_types;
 					commands.push(command_json);
 				}
 			}
