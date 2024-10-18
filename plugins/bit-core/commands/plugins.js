@@ -7,23 +7,11 @@ require('moment-duration-format');
 
 module.exports = {
     cooldown: 5,
-    // Sets if the command can be used with the bot as a user-installed app or a guild-installed app.
-    integration_types: {
-        user: true,
-        guild: true,
-    },
-
-    // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
-    context_types: {
-		guildChannel: true,
-		botDM: true,
-		privateChannel: true,
-	},
-
 	data: new SlashCommandBuilder()
 		.setName('plugins')
 		.setDescription('List all plugins available within the bot')
-        .setDMPermission(true),
+        .setIntegrationTypes(0,1)
+        .setContexts(0,1,2),
 	async execute(interaction) {
         
         var pluginNum = 0;

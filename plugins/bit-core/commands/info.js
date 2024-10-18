@@ -5,19 +5,6 @@ const language = require('../../../config.json')
 
 module.exports = {
     cooldown: 5,
-    // Sets if the command can be used with the bot as a user-installed app or a guild-installed app.
-    integration_types: {
-        user: true,
-        guild: true,
-    },
-
-    // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
-    context_types: {
-		guildChannel: true,
-		botDM: true,
-		privateChannel: true,
-	},
-
 	data: new SlashCommandBuilder()
 		.setName('info')
         .setNameLocalizations({
@@ -29,7 +16,8 @@ module.exports = {
             de: 'Erhalten Sie erweiterte Informationen über den Bot.',
             fr: 'Obtenez des informations avancées sur le bot.',
         })
-        .setDMPermission(false),
+        .setIntegrationTypes(0,1)
+        .setContexts(0,1,2),
 	async execute(interaction) {
         const client = interaction.client
         var lan = language;
