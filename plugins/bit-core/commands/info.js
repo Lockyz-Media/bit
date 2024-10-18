@@ -1,7 +1,7 @@
 const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
-const { language } = require('../../../config.json')
+const { language } = require('../../../configs/bit-core/config.json')
 
 module.exports = {
     cooldown: 5,
