@@ -25,40 +25,60 @@ if(pluginPath && plugins) {
 					//commands.push(command.data.toJSON());
 					
 					const commandJSON = command.data.toJSON();
-					var integrationTypes = [];
-					var contextTypes = [];
+					/*
+						<-- Deprecated
+							We're moving to the default discord.js method for integrationTypes and contextTypes.
+							The documentation will be revised in the future.
 
-					if(command.integration_types.user === true || command.integration_types.guild === true) {
-						if(command.integration_types.user === true) {
-							integrationTypes.push(1);
-						}
+							This method will be removed in the next major Bit release (Bit 2025.0)
+					*/
+					if(command.integration_types || command.context_types) {
+						var integrationTypes = [];
+						var contextTypes = [];
+
+						if(command.integration_types.user === true || command.integration_types.guild === true) {
+							if(command.integration_types.user === true) {
+								integrationTypes.push(1);
+							}
 	
-						if(command.integration_types.guild === true) {
-							integrationTypes.push(0);
+							if(command.integration_types.guild === true) {
+								integrationTypes.push(0);
+							}
+						} else {
+							integrationTypes = 0;
 						}
-					} else {
-						integrationTypes.push(0);
+
+						if(command.context_types.guildChannel === true || command.context_types.botDM === true || command.context_types.privateChannel === true ) {
+							if(command.context_types.guildChannel === true) {
+								contextTypes.push(0);
+							}
+
+							if(command.context_types.botDM === true) {
+								contextTypes.push(1);
+							}
+
+							// Technically does not apply if the command does not work when bot is used as a user-installable app
+							if(command.context_types.privateChannel === true && command.integration_types.user === true) {
+								contextTypes.push(2);
+							}
+						} else {
+							contextTypes = 0;
+						}
+
+						if(integrationTypes !== 0) {
+							commandJSON.integration_types = integrationTypes;
+							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for integration types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+						}
+
+						if(contextTypes !== 0) {
+							commandJSON.contexts = contextTypes;
+							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for context types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+						}
 					}
+					/*
+						Deprecated -->
+					*/
 
-					if(command.context_types.guildChannel === true || command.context_types.botDM === true || command.context_types.privateChannel === true ) {
-						if(command.context_types.guildChannel === true) {
-							contextTypes.push(0);
-						}
-
-						if(command.context_types.botDM === true) {
-							contextTypes.push(1);
-						}
-
-						// Technically does not apply if the command does not work when bot is used as a user-installable app
-						if(command.context_types.privateChannel === true && command.integration_types.user === true) {
-							contextTypes.push(2);
-						}
-					} else {
-						contextTypes.push(0);
-					}
-
-					commandJSON.integration_types = integrationTypes;
-					commandJSON.contexts = contextTypes;
 					commands.push(commandJSON);
 				}
 			}
