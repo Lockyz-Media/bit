@@ -1,10 +1,23 @@
 const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
-const { language } = require('../../../config.json')
+const language = require('../../../config.json')
 
 module.exports = {
     cooldown: 5,
+    // Sets if the command can be used with the bot as a user-installed app or a guild-installed app.
+    integration_types: {
+        user: true,
+        guild: true,
+    },
+
+    // Sets if the command can be used in a guild-channel, the bots DMs or a private channel (only works IF the command is user-installable, group DMs and regular user DMs)
+    context_types: {
+		guildChannel: true,
+		botDM: true,
+		privateChannel: true,
+	},
+
 	data: new SlashCommandBuilder()
 		.setName('info')
         .setNameLocalizations({
@@ -16,12 +29,11 @@ module.exports = {
             de: 'Erhalten Sie erweiterte Informationen über den Bot.',
             fr: 'Obtenez des informations avancées sur le bot.',
         })
-        .setIntegrationTypes(0,1)
-        .setContexts(0,1,2),
+        .setDMPermission(false),
 	async execute(interaction) {
         const client = interaction.client
-        var lang = language;
-        const locale = require('../../../locale/'+lang+'.json')
+        var lan = language;
+        const locale = require('../../../locale/'+lan+'.json')
 
         const botUptime = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
         const memUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
