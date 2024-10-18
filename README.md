@@ -2,7 +2,7 @@
 ## Version Information
 | Current Version | Next Version |
 | :---: | :---: |
-| 5.2 | 2024.1 |
+| 2024.2 | 2025.1 |
 
 ## Whats included in this bot?
 - Command Handler
