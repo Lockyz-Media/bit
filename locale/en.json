@@ -2,10 +2,10 @@
     "error": {
         "default": "An error has occured, please try again\n`{error}`",
         "unbannable": "Either my role is too low to ban this user or they have some sort of magical power.",
-        "noPermission": "You don't have the permission to use this command",
-        "notGuild": "Commands can only be executed within a server.",
-        "noCommandFound": "No command matching {command} was found.",
-        "commandError": "There was an error while executing this command!"
+        "permission": "You don't have the permission to use this command",
+        "not_guild": "Commands can only be executed within a server.",
+        "no_command_found": "No command matching {command} was found.",
+        "command_error": "There was an error while executing this command!"
     },
     "bot": {
         "name": "Bit",
@@ -20,26 +20,29 @@
         "discordJS": "Discord.js",
         "node": "Node.js",
         "version": "Version",
-        "bugTracker": "Bug Tracker",
-        "copyrightText": "©2018-{year} Lockyz Media",
+        "copyright": "©2018-{year} Lockyz Media",
         "support": "Support",
         "developer": "Developer",
-        "xpDisabled": "The XP System is disabled through guild settings, a server owner should disable this command.",
-        "privacyResponse": "This bot was created by Lockyz Media, we do not store any user information without prior consent. We also will not store any information for persons under the age of 13 as per Australian law.\nBy using our services you agree to the use of privatised data needed to access the Discord API. If you would like us to exclude you from any sort of data useage please DM our Admin \"Robin Painter\" and let them know.\n\nYou're welcome to view a more in-depth version of our privacy policy at: <https://lockyzmedia.com/privacy>",
-        "login": "🟢 Bit 2024.1 online! Logged in as ",
+        "login": "🟢 Bit 2025.1 online! Logged in as ",
         "welcome": "==== Welcome to Bit! ===="
     },
     "debug": {
-        "devmode": {
+        "dev_mode": {
             "warning": "Dev mode has been enabled, expect extra logs!",
-            "commanduse": "User {username} has used the {command} command!",
-            "commanduseusenotguild": "{command} command has been used. The user cannot be determined (command was likely not used within a guild)",
-            "autocompleteuse": "User {username} has used the {command} command's autocomplete!",
-            "statusset": "The status has been set!",
-            "guildadd": "The bot has been added to a guild named {guildname} with an ID of {guildid}!",
-            "guildaddunavailable": "The bot has been added to a guild named {guildname} with an ID of {guildid}, however it is unavailable!",
-            "guildremove": "The bot has been added to a guild named {guildname} with an ID of {guildid}!",
-            "guildremoveunavailable": "The bot has been added to a guild named {guildname} with an ID of {guildid}, however it is unavailable!"
+            "command": {
+                "use": "User {username} has used the {command} command!",
+                "not_guild": "{command} command has been used. The user cannot be determined (command was likely not used within a guild)",
+                "autocomplete": "User {username} has used the {command} command's autocomplete!"
+            },
+            "status": {
+                "set": "The status has been set!"
+            },
+            "guild": {
+                "add": "The bot has been added to a guild named {guildname} with an ID of {guildid}!",
+                "unavailable": "The bot has been added to a guild named {guildname} with an ID of {guildid}, however it is unavailable!",
+                "remove": "The bot has been added to a guild named {guildname} with an ID of {guildid}!",
+                "removeunavailable": "The bot has been added to a guild named {guildname} with an ID of {guildid}, however it is unavailable!"    
+            }
         }
     }
 }

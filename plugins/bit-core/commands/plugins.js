@@ -14,42 +14,42 @@ module.exports = {
         .setContexts(0,1,2),
 	async execute(interaction) {
         
-        var pluginNum = 0;
-        var pluginCount;
-        function countPlugins() {
-            const pluginPath = "./plugins/";
-            const plugins = fs.readdirSync(pluginPath)
-            //var pluginCount = plugins.length;
+        var plugin_num = 0;
+        var plugin_count;
+        function plugins_count() {
+            const plugin_path = "./plugins/";
+            const plugins = fs.readdirSync(plugin_path)
+            //var plugin_count = plugins.length;
     
             return plugins.length;
         }
 
-        function listAllPlugins() {
-            var pluginList = []
+        function plugins_list() {
+            var plugin_list = []
     
-            const pluginPath = "./plugins/";
-            const plugins = fs.readdirSync(pluginPath)
-            pluginCount = plugins.length
+            const plugin_path = "./plugins/";
+            const plugins = fs.readdirSync(plugin_path)
+            plugin_count = plugins.length
     
-            if(pluginPath && plugins) {
+            if(plugin_path && plugins) {
                 for(const folder of plugins) {
-                    const pluginInfo = require("./../../"+folder+"/plugin.json")
-                    if(pluginInfo.list_in_plugins_command === true) {
-                        pluginList.push({
-                            'name': pluginInfo.name,
-                            'developer': pluginInfo.developer,
-                            'version': pluginInfo.version,
-                            'support': pluginInfo.support,
-                            'hasEvents': pluginInfo.events,
-                            'hasCommands': pluginInfo.commands
+                    const plugin_info = require("./../../"+folder+"/plugin.json")
+                    if(plugin_info.list_in_plugins_command === true) {
+                        plugin_list.push({
+                            'name': plugin_info.name,
+                            'developer': plugin_info.developer,
+                            'version': plugin_info.version,
+                            'support': plugin_info.support,
+                            'hasEvents': plugin_info.events,
+                            'hasCommands': plugin_info.commands
                         })
                     }
                     
-                    pluginNum += 1;
+                    plugin_num += 1;
                 }
     
-                if(pluginNum === pluginCount) {
-                    return pluginList;
+                if(plugin_num === plugin_count) {
+                    return plugin_list;
                 }
             } else {
                 console.log("Error")
@@ -59,21 +59,21 @@ module.exports = {
         const client = interaction.client
         interaction.deferReply()
         await wait(4000);
-        var pluginCount2 = 0;
-        var embedDescription = '';
+        var plugin_count2 = 0;
+        var embed_description = '';
 
         const embed = new EmbedBuilder()
             .setTitle('Plugin List')
         
-        listAllPlugins().forEach(({ name, developer }) => {
-            embedDescription += name+" by "+developer+"\n"
-            pluginCount2+=1;
+        plugins_list().forEach(({ name, developer }) => {
+            embed_description += name+" by "+developer+"\n"
+            plugin_count2+=1;
         })
 
-        var pluginCount3 = countPlugins()
+        var plugin_count3 = plugins_count()
 
-        if(pluginCount2 === pluginCount3) {
-            embed.setDescription(embedDescription)
+        if(plugin_count2 === plugin_count3) {
+            embed.setDescription(embed_description)
             interaction.editReply({ embeds: [embed] })
         }
 	}

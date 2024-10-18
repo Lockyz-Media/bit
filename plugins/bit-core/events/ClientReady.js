@@ -1,5 +1,5 @@
 const { Events, ActivityType } = require('discord.js');
-const { embedColours, botIDs, activities, language, devmode, bit_updates } = require('../../../configs/bit/config.json');
+const { embed_colours, bot_ids, activities, language, dev_mode, bit_updates } = require('../../../configs/bit-core/config.json');
 
 module.exports = {
 	name: Events.ClientReady,
@@ -7,45 +7,45 @@ module.exports = {
 	execute(client) {
 		var lan = language;
         const locale = require('../../../locale/'+lan+'.json')
-		var statusActivityType = ActivityType.Playing
-		var statusActivityName = "string"
-		var statusActivityState = "string"
-		var activityStatus = "online"
+		var status_activity_type = ActivityType.Playing
+		var status_activity_name = "string"
+		var status_activity_state = "string"
+		var activity_status = "online"
 
 		if(activities.type === "custom") {
-			statusActivityType = ActivityType.Custom
+			status_activity_type = ActivityType.Custom
 		} else if(activities.type === "playing") {
-			statusActivityType = ActivityType.Playing
+			status_activity_type = ActivityType.Playing
 		} else if(activities.type === "listening") {
-			statusActivityType = ActivityType.Listening
+			status_activity_type = ActivityType.Listening
 		} else if(activities.type === "watching") {
-			statusActivityType = ActivityType.Watching
+			status_activity_type = ActivityType.Watching
 		}
 
 		if(activities.state) {
-			statusActivityState = activities.state
+			status_activity_state = activities.state
 		}
 
 		if(activities.status) {
-			activityStatus = activities.status
+			activity_status = activities.status
 		}
 
 		client.user.setPresence({
 			activities: [{
-				type: statusActivityType,
+				type: status_activity_type,
 				name: "status",
-				state: statusActivityState
+				state: status_activity_state
 			}],
-			status: activityStatus
+			status: activity_status
 		})
 
-		if(devmode === true) {
-			console.log(locale.debug.devmode.statusset)
+		if(dev_mode === true) {
+			console.log(locale.debug.dev_mode.status.set)
 		}
 
 		console.log(locale.misc.login+ client.user.tag)
-		if(devmode === true) {
-			console.log(locale.debug.devmode.warning);
+		if(dev_mode === true) {
+			console.log(locale.debug.dev_mode.warning);
 		}
 
 		let url = bit_updates;
@@ -53,9 +53,9 @@ module.exports = {
 		fetch(url, settings)
 		.then(res => res.json())
 		.then((json) => {
-			update = json.minor_versions["2024.1"]
-			if(json.stable.bit === "2024.1.1") {
-				if(json.latest.bit === "2024.1.1") {
+			update = json.minor_versions["2025.1"]
+			if(json.stable.bit === "2025.1.0") {
+				if(json.latest.bit === "2025.1.0") {
 					console.log("You're using an unstable version of Bit. Please exercise caution")
 				} else {
 					console.log("This version of Bit is NOT the latest stable version. It's HIGHLY recommended to update!")
