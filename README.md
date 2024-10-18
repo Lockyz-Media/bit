@@ -1,8 +1,11 @@
+# This version of Bit has reached End of Service, this means it will no longer recieve new features, and bug fixes have been heavily reduced.
+# This version of Bit will enter End of Life in 19th of August 2027
+
 # Bit
 ## Version Information
 | Current Version | Next Version |
 | :---: | :---: |
-| 5.2 | 5.3 |
+| 5.2 | 2024.1 |
 
 ## Whats included in this bot?
 - Command Handler
