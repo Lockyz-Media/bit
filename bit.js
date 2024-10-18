@@ -1,7 +1,7 @@
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { token, botIDs } = require('./config.json');
+const { token, botIDs } = require('./configs/bit/config.json');
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
