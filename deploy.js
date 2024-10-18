@@ -25,6 +25,13 @@ if(pluginPath && plugins) {
 					//commands.push(command.data.toJSON());
 					
 					const commandJSON = command.data.toJSON();
+					/*
+						<-- Deprecated
+							We're moving to the default discord.js method for integrationTypes and contextTypes.
+							The documentation will be revised in the future.
+
+							This method will be removed in the next major Bit release (Bit 2025.0)
+					*/
 					var integrationTypes = [];
 					var contextTypes = [];
 
@@ -37,7 +44,7 @@ if(pluginPath && plugins) {
 							integrationTypes.push(0);
 						}
 					} else {
-						integrationTypes.push(0);
+						integrationTypes = 0;
 					}
 
 					if(command.context_types.guildChannel === true || command.context_types.botDM === true || command.context_types.privateChannel === true ) {
@@ -54,11 +61,23 @@ if(pluginPath && plugins) {
 							contextTypes.push(2);
 						}
 					} else {
-						contextTypes.push(0);
+						contextTypes = 0;
 					}
 
-					commandJSON.integration_types = integrationTypes;
-					commandJSON.contexts = contextTypes;
+					if(integrationTypes !== 0) {
+						commandJSON.integration_types = integrationTypes;
+						console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for integration types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+					}
+
+					if(contextTypes !== 0) {
+						commandJSON.contexts = contextTypes;
+						console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for context types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+					}
+
+					/*
+						Deprecated -->
+					*/
+
 					commands.push(commandJSON);
 				}
 			}
