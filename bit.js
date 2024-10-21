@@ -108,7 +108,7 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.requirements.bit) {
-			if(pluginInfo.requirements.bit.version === "2024.2.0" || pluginInfo.requirements.bit.version === "2024.2.0") {
+			if(pluginInfo.requirements.bit.version === "2025.1.0") {
 				compatible = true;
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
