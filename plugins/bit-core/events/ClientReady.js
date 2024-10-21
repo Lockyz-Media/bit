@@ -53,7 +53,7 @@ module.exports = {
 		fetch(url, settings)
 		.then(res => res.json())
 		.then((json) => {
-			update = json.minor_versions["2024.2"]
+			update = json.minor_versions["2025.1"]
 			if(json.stable.bit === "2025.1.0") {
 				if(json.latest.bit === "2025.1.0") {
 					console.log("You're using an unstable version of Bit. Please exercise caution")

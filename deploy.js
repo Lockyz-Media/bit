@@ -5,65 +5,30 @@ const path = require('node:path');
 
 const commands = [];
 
-const pluginPath = path.join(__dirname, 'plugins');
-const plugins = fs.readdirSync(pluginPath)
-if(pluginPath && plugins) {
+const plugin_path = path.join(__dirname, 'plugins');
+const plugins = fs.readdirSync(plugin_path)
+if(plugin_path && plugins) {
 	for(const folder of plugins) {
-		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
-		console.log("Checking if "+pluginInfo.name+" has commands!")
-		if(pluginInfo.commands) {
-			console.log("Searching "+pluginInfo.name+"/commands/application for commands!")
-			const pluginCommandsPath = pluginPath+"/"+folder+"/commands/application"
-			const pluginCommandFiles = fs.readdirSync(pluginCommandsPath).filter(file => file.endsWith('.js'));
+		const plugin_info = require(plugin_path+"/"+folder+"/plugin.json")
+		console.log("Checking if "+plugin_info.name+" has commands!")
+		if(plugin_info.commands) {
+			console.log("Searching "+plugin_info.name+"/commands for commands!")
+			const plugin_commands_path = plugin_path+"/"+folder+"/commands"
+			const plugin_command_files = fs.readdirSync(plugin_commands_path).filter(file => file.endsWith('.js'));
 
-			if(pluginCommandFiles.length === 0) {
+			if(plugin_command_files.length === 0) {
 				console.log("Plugin has no commands but is trying to load commands. Skipping!")
 			} else {
-				for(const file of pluginCommandFiles) {
-					const command = require(pluginCommandsPath+`/${file}`);
+				for(const file of plugin_command_files) {
+					const command = require(plugin_commands_path+`/${file}`);
 					console.log("Deploying command "+command.data.name)
-					//commands/application.push(command.data.toJSON());
 					
 					const commandJSON = command.data.toJSON();
-					var integrationTypes = [];
-					var contextTypes = [];
-
-					if(command.integration_types.user === true || command.integration_types.guild === true) {
-						if(command.integration_types.user === true) {
-							integrationTypes.push(1);
-						}
-	
-						if(command.integration_types.guild === true) {
-							integrationTypes.push(0);
-						}
-					} else {
-						integrationTypes.push(0);
-					}
-
-					if(command.context_types.guildChannel === true || command.context_types.botDM === true || command.context_types.privateChannel === true ) {
-						if(command.context_types.guildChannel === true) {
-							contextTypes.push(0);
-						}
-
-						if(command.context_types.botDM === true) {
-							contextTypes.push(1);
-						}
-
-						// Technically does not apply if the command does not work when bot is used as a user-installable app
-						if(command.context_types.privateChannel === true && command.integration_types.user === true) {
-							contextTypes.push(2);
-						}
-					} else {
-						contextTypes.push(0);
-					}
-
-					commandJSON.integration_types = integrationTypes;
-					commandJSON.contexts = contextTypes;
 					commands.push(commandJSON);
 				}
 			}
 		} else {
-			console.log("Plugin "+pluginInfo.name+" does not have commands!")
+			console.log("Plugin "+plugin_info.name+" does not have commands!")
 		}
 	}
 }

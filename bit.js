@@ -48,8 +48,8 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'
 
 if(eventsPath && eventFiles) {
 	for(const file of eventFiles) {
-		const filePath = path.join(eventsPath, file);
-		const event = require(filePath);
+		const file_path = path.join(eventsPath, file);
+		const event = require(file_path);
 		if(event.once) {
 			client.once(event.name, (...args) => event.execute(...args));
 		} else {
@@ -94,7 +94,7 @@ if(pluginPath && plugins) {
 			fetch(url, settings)
 			.then(res => res.json())
 			.then((json) => {
-				update = json.bit_versions["2024.2"]
+				update = json.bit_versions["2025.1"]
 				if(update === pluginInfo.version) {
 				} else {
 					console.log("Plugin "+pluginInfo.name+" by "+pluginInfo.developer+" is outdated, it may be dangerous to continue without updating.")
@@ -121,17 +121,17 @@ if(pluginPath && plugins) {
 
 		if(compatible === true) {
 			if(pluginInfo.commands === true) {
-				const commandsPath = pluginPath+"/"+folder+"/commands/application"
-				const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+				const commands_path = pluginPath+"/"+folder+"/commands/application"
+				const command_files = fs.readdirSync(commands_path).filter(file => file.endsWith('.js'));
 		
-				for(const file of commandFiles) {
-					const filePath = path.join(commandsPath, file);
-					const command = require(filePath);
+				for(const file of command_files) {
+					const file_path = path.join(commands_path, file);
+					const command = require(file_path);
 		
 					if('data' in command && 'execute' in command) {
 						client.commands.set(command.data.name, command);
 					} else {
-						console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+						console.log(`[WARNING] The command at ${file_path} is missing a required "data" or "execute" property.`);
 					}
 				}
 			}
@@ -141,8 +141,8 @@ if(pluginPath && plugins) {
 				const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 		
 				for(const file of eventFiles) {
-					const filePath = path.join(eventsPath, file);
-					const event = require(filePath);
+					const file_path = path.join(eventsPath, file);
+					const event = require(file_path);
 					if(event.once) {
 						client.once(event.name, (...args) => event.execute(...args));
 					} else {
