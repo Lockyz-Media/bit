@@ -1,10 +1,22 @@
 {
     "name": "Bit Core",
-    "developer": "Robin Painter",
-    "version": "5.2.0",
-    "bitVersion": "5.2.0",
-    "support": "https://github.com/Lockyz-Dev/bit-core/issues",
-    "updateURL": "https://cdn.lockyzdev.net/bit/plugins/core/update.json",
-    "events": "false",
-    "commands": "true"
+    "id": "bit-core",
+    "developer": "Lockyz Media",
+    "version": "2024.2.0",
+    "support": "https://github.com/Lockyz-Media/bit/issues",
+    "update_url": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
+    "events": true,
+    "commands": true,
+    "hasIndex": true,
+    "mainFile": "index.js",
+    "list_in_plugins_command": true,
+    "requirements": {
+        "bit": {
+            "version": "2024.2.0",
+            "level": "1"
+        },
+        "other": {
+            "note": "PLUGIN REQUIREMENTS ARE NOT USED IN THIS RELEASE."
+        }
+    }
 }

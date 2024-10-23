@@ -1,8 +1,10 @@
 const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('discord.js')
 const moment = require('moment');
 require('moment-duration-format');
+const { language } = require('../../../configs/bit/config.json')
 
 module.exports = {
+    cooldown: 5,
 	data: new SlashCommandBuilder()
 		.setName('info')
         .setNameLocalizations({
@@ -14,11 +16,12 @@ module.exports = {
             de: 'Erhalten Sie erweiterte Informationen über den Bot.',
             fr: 'Obtenez des informations avancées sur le bot.',
         })
-        .setDMPermission(false),
+        .setIntegrationTypes(0,1)
+        .setContexts(0,1,2),
 	async execute(interaction) {
         const client = interaction.client
-        var lan = 'en'
-        const locale = require('../locale/'+lan+'.json')
+        var lang = language;
+        const locale = require('../../../locale/'+lang+'.json')
 
         const botUptime = moment.duration(client.uptime).format(' D [days], H [hrs], m [mins], s [secs]');
         const memUsage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);

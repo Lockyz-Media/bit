@@ -6,10 +6,12 @@ const moment = require('moment');
 require('moment-duration-format');
 
 module.exports = {
+    cooldown: 5,
 	data: new SlashCommandBuilder()
 		.setName('plugins')
 		.setDescription('List all plugins available within the bot')
-        .setDMPermission(true),
+        .setIntegrationTypes(0,1)
+        .setContexts(0,1,2),
 	async execute(interaction) {
         
         var pluginNum = 0;
@@ -32,14 +34,17 @@ module.exports = {
             if(pluginPath && plugins) {
                 for(const folder of plugins) {
                     const pluginInfo = require("./../../"+folder+"/plugin.json")
-                    pluginList.push({
-                        'name': pluginInfo.name,
-                        'developer': pluginInfo.developer,
-                        'version': pluginInfo.version,
-                        'support': pluginInfo.support,
-                        'hasEvents': pluginInfo.events,
-                        'hasCommands': pluginInfo.commands
-                    })
+                    if(pluginInfo.list_in_plugins_command === true) {
+                        pluginList.push({
+                            'name': pluginInfo.name,
+                            'developer': pluginInfo.developer,
+                            'version': pluginInfo.version,
+                            'support': pluginInfo.support,
+                            'hasEvents': pluginInfo.events,
+                            'hasCommands': pluginInfo.commands
+                        })
+                    }
+                    
                     pluginNum += 1;
                 }
     
