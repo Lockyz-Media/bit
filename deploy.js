@@ -67,12 +67,12 @@ if(pluginPath && plugins) {
 
 						if(integrationTypes !== 0) {
 							commandJSON.integration_types = integrationTypes;
-							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for integration types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.2 method for integration types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
 						}
 
 						if(contextTypes !== 0) {
 							commandJSON.contexts = contextTypes;
-							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.1 method for context types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
+							console.log("Plugin "+pluginInfo.name+" is using the Bit 2024.2 method for context types. This has been deprecated as of Bit 2024.2 and will be removed in Bit 2025.1")
 						}
 					}
 					/*
