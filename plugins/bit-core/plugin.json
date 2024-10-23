@@ -2,21 +2,18 @@
     "name": "Bit Core",
     "id": "bit-core",
     "developer": "Lockyz Media",
-    "version": "2024.2.0",
+    "version": "2025.1",
     "support": "https://github.com/Lockyz-Media/bit/issues",
     "update_url": "https://cdn.lockyzmedia.com/discord/bots/bit/plugins/core/update.json",
     "events": true,
     "commands": true,
-    "hasIndex": true,
-    "mainFile": "index.js",
+    "has_index": true,
+    "main_file": "index.js",
     "list_in_plugins_command": true,
     "requirements": {
         "bit": {
-            "version": "2024.2.0",
+            "version": "2025.1",
             "level": "1"
-        },
-        "other": {
-            "note": "PLUGIN REQUIREMENTS ARE NOT USED IN THIS RELEASE."
         }
     }
 }
