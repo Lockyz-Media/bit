@@ -1,13 +1,23 @@
 const emojiCharacters = require("./emojiCharacters.js")
 const config = require("../../config.json")
+
 module.exports = {
     start_function: function start_function() {
-        console.log("Bit: Core Successfully Loaded!")
+        this.log(0, "Bit Core", true, "Successfully Loaded!")
     },
     find_emoji: function find_emoji(emoji) {
         return emojiCharacters[emoji];
     },
+
     log: function log(type, plugin, force, message) {
+        /**
+         * @description Creates a log using Bits custom logging system
+         * @param {number} type 0 for Info, 1 for Warning, 2 for Error
+         * @param {string} plugin The name of your plugin
+         * @param {boolean} force Whether to force the log to the console regardless of user setting
+         * @param {string} message The exact log
+         */
+        
         if(isNaN(type)) {
             if(plugin) {
                 if(message) {

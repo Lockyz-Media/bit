@@ -1,6 +1,7 @@
 const { Events } = require('discord.js');
 const { dev_mode, language } = require('../config.json');
 const banned_users = require("../databases/bit-core/bannedUsers.json")
+const bit = require("../plugins/bit-core/index")
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -16,7 +17,8 @@ module.exports = {
             const command = interaction.client.commands.get(interaction.commandName);
 
             if(!command) {
-                console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
+                bit.log(2, "Bit", true, locale.error.no_command_found.replace('{command}', interaction.commandName))
+                //console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
                 interaction.reply({ content: locale.error.no_command_found.replace('{command}', interaction.commandName) });
                 return;
             }
@@ -24,17 +26,20 @@ module.exports = {
             try {
                 if(!interaction.guild) {
                     if(dev_mode === true) {
-                        console.log(locale.debug.dev_mode.command.not_guild.replace('{command}', interaction.commandName));
+                        bit.log(2, "Bit", true, locale.debug.dev_mode.command.not_guild.replace('{command}', interaction.commandName))
+                        //console.log(locale.debug.dev_mode.command.not_guild.replace('{command}', interaction.commandName));
                     }
                     await command.execute(interaction);
                 } else {
                     if(dev_mode === true) {
-                        console.log(locale.debug.dev_mode.command.use.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
+                        bit.log(0, "Bit", true, locale.debug.dev_mode.command.use.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username))
+                        //console.log(locale.debug.dev_mode.command.use.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
                     }
                     await command.execute(interaction);
                 }
             } catch (error) {
-                console.error(error);
+                //console.error(error);
+                bit.log(2, "Bit", true, error)
 
                 if(interaction.replied || interaction.deferred) {
                     await interaction.followUp({ content: locale.error.command_error, ephemeral: true });
@@ -46,19 +51,22 @@ module.exports = {
             const command = interaction.client.commands.get(interaction.commandName);
 
             if (!command) {
-                console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
+                bit.log(2, "Bit", true, locale.error.no_command_found.replace('{command}', interaction.commandName))
+                //console.error(locale.error.no_command_found.replace('{command}', interaction.commandName));
                 interaction.reply({ content: locale.error.no_command_found.replace('{command}', interaction.commandName) });
                 return;
             }
 
             if(dev_mode === true) {
-                console.log(locale.debug.dev_mode.command.autocomplete.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
+                bit.log(0, "Bit", true, locale.debug.dev_mode.command.autocomplete.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username))
+                //console.log(locale.debug.dev_mode.command.autocomplete.replace('{command}', interaction.commandName).replace('{username}', interaction.user.username));
             }
     
             try {
                 await command.autocomplete(interaction);
             } catch (error) {
-                console.error(error);
+                bit.log(2, "Bit", true, error)
+                //console.error(error);
             }
         }
     }
