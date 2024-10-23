@@ -20,5 +20,18 @@
 	"guild_only": false,
 	"language": "en",
 	"dev_mode": true,
+	"logs": {
+		"channel": "LOGGING ID",
+		"send_to_discord": {
+			"errors": true,
+			"warnings": true,
+			"info": true
+		},
+		"send_to_console": {
+			"errors": true,
+			"warnings": true,
+			"info": true
+		}
+	},
 	"token": "BOT-TOKEN"
 }
