@@ -47,13 +47,13 @@ module.exports = {
             } else {
                 console.log("Error")
             }
-        }
+        }*/
 
         const client = interaction.client
         interaction.deferReply()
         await wait(4000);
         var plugin_count2 = 0;
-        var embed_description = '';*/
+        var embed_description = '';
 
         const embed = new EmbedBuilder()
             .setTitle('Plugin List')
