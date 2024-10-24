@@ -22,5 +22,9 @@
     "moment": "^2.30.1",
     "moment-duration-format": "^2.3.2",
     "ms": "^2.1.3"
+  },
+  "exports": {
+    ".": "./bit.js",
+    "./core": "./plugins/bit-core/index.js"
   }
 }
