@@ -3,7 +3,7 @@ const { dev_mode, language } = require('../../../config.json');
 const core = require("bit/core")
 
 module.exports = {
-    name: Events.GuildCreate,
+    name: Events.GuildDelete,
     async execute(guild) {
         var lan = language;
         const locale = require('../../../locale/'+lan+'.json')
