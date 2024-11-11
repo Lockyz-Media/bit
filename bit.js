@@ -1,25 +1,26 @@
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { token, bot_ids } = require('./config.json');
+const { token, bot_ids, dev_mode } = require('./config.json');
 let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const core = require('bit/core');
 
 
 if(!token) {
-	console.log('\e[0;31m', "Bit Core failed to start: Token is not defined.")
-	process.exit(1)
+	core.log(2, "Bit", true, "Bit failed to start: Token is not defined. Exiting...")
+	process.exit(1);
 }
 
 if(!bot_ids.client) {
-	console.log('\e[0;31m', "Bit Core failed to start: Client ID is not defined.")
-	process.exit(1)
+	core.log(2, "Bit", true, "Bit failed to start: Client ID is not defined. Exiting...")
+	process.exit(1);
 }
 
 if(!bot_ids.owner) {
-	console.log('\e[0;31m', "Owner ID is not defined, some bot functions will never work.")
+	core.log(1, "Bit", true, "Owner ID is not defined, some bot functions will never work.")
 }
 
 const client = new Client({
@@ -32,7 +33,7 @@ const client = new Client({
 var thisSentence = false;
 
 process.on('unhandledRejection', error => {
-	console.error('Unhandled promise rejection:', error);
+	core.log(2, "Bit", true, "Unhandled promise rejection: "+error)
 })
 
 client.commands = new Collection();
@@ -51,9 +52,11 @@ if(events_path && event_files) {
 			client.on(event.name, (...args) => event.execute(...args));
 		}
 	}
-	console.log("Loading "+event_files.length+" events")
+	core.log(0, "Bit", true, "Loading "+event_files.length+" events")
 } else {
-	console.log('No event files found in Bit: Core')
+	core.log(2, "Bit", true, 'No event files found in Bit. Please redownload. Exiting...')
+	process.exit(1);
+
 }
 
 const plugin_path = path.join(__dirname, 'plugins');
@@ -66,42 +69,42 @@ fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
 	if (err) throw err;
   });
 
-if(pluginPath && plugins) {
+if(plugin_path && plugins) {
 	for(const folder of plugins) {
-		const pluginFile = require(pluginPath+"/"+folder+"/plugin.json")
-		const pluginsjson = fs.readFileSync('./databases/bit/plugins.json');
-		const jsonData = JSON.parse(pluginsjson);
-		var pluginInfo = new Array()
+		const plugin_file = require(plugin_path+"/"+folder+"/plugin.json")
+		const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
+		const jsonData = JSON.parse(plugins_json);
+		var plugin_info = new Array()
 
-		if(pluginFile.id) {
-			pluginInfo.id = pluginFile.id
+		if(plugin_file.id) {
+			plugin_info.id = plugin_file.id
 		} else {
-			pluginInfo.disabled = true
+			plugin_info.disabled = true
 		}
 
-		if(pluginFile.version) {
-			pluginInfo.version = pluginFile.version
+		if(plugin_file.version) {
+			plugin_info.version = plugin_file.version
 		} else {
-			pluginInfo.disabled = true
+			plugin_info.disabled = true
 		}
 
-		if(pluginFile.name) {
-			pluginInfo.name = pluginFile.name
+		if(plugin_file.name) {
+			plugin_info.name = plugin_file.name
 		} else {
-			pluginInfo.disabled = true
+			plugin_info.disabled = true
 		}
 
-		if(pluginInfo.disabled) {
-			pluginInfo.disabled = true
+		if(plugin_info.disabled) {
+			plugin_info.disabled = true
 		} else {
-			pluginInfo.disabled = false
+			plugin_info.disabled = false
 		}
 
 		jsonData.plugins.push({
-			name: pluginInfo.name,
-			id: pluginInfo.id,
-			version: pluginInfo.version,
-			disabled: pluginInfo.disabled
+			name: plugin_info.name,
+			id: plugin_info.id,
+			version: plugin_info.version,
+			disabled: plugin_info.disabled
 		})
 		const jsonString = JSON.stringify(jsonData);
 		fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
@@ -110,10 +113,10 @@ if(pluginPath && plugins) {
 	}
 
 	for(const folder of plugins) {
-		const pluginInfo = require(pluginPath+"/"+folder+"/plugin.json")
-		if(pluginInfo.id === "bit-core") {
-			if(noCore === false) {
-				console.log("A plugin is calling itself bit core, but bit core is already installed. Bit will now close!")
+		const plugin_info = require(plugin_path+"/"+folder+"/plugin.json")
+		if(plugin_info.id === "bit-core") {
+			if(no_core === false) {
+				core.log(2, "Bit", true, 'A plugin is calling itself bit core, but bit core is already installed. Please review your plugins. Exiting...')
 				process.exit(1);
 			} else {
 				no_core = false;
@@ -121,12 +124,16 @@ if(pluginPath && plugins) {
 		}
 
 		if(plugin_info.id === "example-plugin") {
-			console.log(`The plugin with the name ${plugin_info.name} has the ID 'example-plugin'. This means the developer has likely not updated their plugin.json and things may not work as intended!`)
+			if(dev_mode) {
+				core.log(0, "Dev-Mode", true, `The plugin with the name ${plugin_info.name} has the ID 'example-plugin'. Make sure to change your plugins ID before releasing your plugin.`)
+			} else {
+				core.log(2, "Bit", true, `The plugin with the name ${plugin_info.name} has the ID 'example-plugin'. This means the developer has likely not updated their plugin.json and things may not work as intended!`)
+			}
 		}
 
 		var compatible = true;
 
-		console.log("Loading "+plugin_info.name+" made by "+plugin_info.developer)
+		core.log(0, "Bit", true, "Loading "+plugin_info.name+" made by "+plugin_info.developer)
 		client.plugins.set(plugin_info.name)
 		if(plugin_info.update_url) {
 			let url = plugin_info.update_url;
@@ -139,25 +146,25 @@ if(pluginPath && plugins) {
 				update = json.bit_versions["2025.1"]
 				if(update === plugin_info.version) {
 				} else {
-					console.log("Plugin "+plugin_info.name+" by "+plugin_info.developer+" is outdated, it may be dangerous to continue without updating.")
-					console.log("Installed Version: "+plugin_info.version)
-					console.log("Latest Version: "+update)
-					console.log("Update from "+json.download_Link)
+					core.log(1, "Bit", true, "Plugin "+plugin_info.name+" by "+plugin_info.developer+" is outdated, it may be dangerous to continue without updating.")
+					core.log(1, "Bit", true, "Installed Version: "+plugin_info.version)
+					core.log(1, "Bit", true, "Latest Version: "+update)
+					core.log(1, "Bit", true, "Update from "+json.download_Link)
 				}
 			})
 		} else {
-			console.log("Plugin "+plugin_info.name+" does not include an update_url and may be outdated.")
+			core.log(1, "Bit", true, "Plugin "+plugin_info.name+" does not include an update_url and may be outdated.")
 		}
 
 		if(plugin_info.requirements.bit) {
 			if(plugin_info.requirements.bit.version === "2025.1.0") {
 				compatible = true;
 			} else {
-				console.log("Plugin "+plugin_info.name+" was not made for this version of Bit, there WILL be compatability issues.")
+				core.log(2, "Bit", true, "Plugin "+plugin_info.name+" was not made for this version of Bit, there WILL be compatability issues.")
 				compatible = false;
 			}
 		} else {
-			console.log("Plugin "+plugin_info.name+" does not specify a Bit version, it may have been built for an older version of the bot.")
+			core.log(2, "Bit", true, "Plugin "+plugin_info.name+" does not specify a Bit version, it may have been built for an older version of the bot.")
 			compatible = false;
 		}
 
@@ -173,7 +180,7 @@ if(pluginPath && plugins) {
 					if('data' in command && 'execute' in command) {
 						client.commands.set(command.data.name, command);
 					} else {
-						console.log(`[WARNING] The command at ${file_path} is missing a required "data" or "execute" property.`);
+						core.log(2, plugin_info.name, true, `The command at ${file_path} is missing a required "data" or "execute" property.`)
 					}
 				}
 			}
@@ -198,19 +205,20 @@ if(pluginPath && plugins) {
 					var plugin = require(plugin_path+"/"+folder+"/"+plugin_info.main_file);
 					plugin.start_function();
 				} else {
-					console.log(`[WARNING] The plugin ${plugin_info.name} tried to start a file that doesn't exist!`)
+					core.log(2, "Bit", true, `The plugin ${plugin_info.name} tried to start a file that doesn't exist!`)
 				}
 			}
 		} else {
-			console.log(plugin_info.name+" is not compatible with this version of Bit and has been skipped!")
+			core.log(1, "Bit", true, plugin_info.name+" is not compatible with this version of Bit and has been skipped!")
 		}
 	}
 } else {
-	console.log('No plugins found')
+	core.log(1, "Bit", true, "No plugins found")
 }
 
 if(no_core === true) {
-	console.log("Bot failed to start: Bit Core was not found, please redownload the bot.")
+	core.log(2, "Bit", true, "Bot failed to start: Bit Core was not found, please redownload the bot.")
+	process.exit(1);
 }
 
 module.exports = {
