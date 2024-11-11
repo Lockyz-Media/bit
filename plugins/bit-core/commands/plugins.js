@@ -17,37 +17,6 @@ module.exports = {
         
         var plugin_num = 0;
         var plugin_count;
-        /*function plugins_list() {
-            var plugin_list = []
-    
-            const plugin_path = "./plugins/";
-            const plugins = fs.readdirSync(plugin_path)
-            plugin_count = plugins.length
-    
-            if(plugin_path && plugins) {
-                for(const folder of plugins) {
-                    const plugin_info = require("./../../"+folder+"/plugin.json")
-                    if(plugin_info.list_in_plugins_command === true) {
-                        plugin_list.push({
-                            'name': plugin_info.name,
-                            'developer': plugin_info.developer,
-                            'version': plugin_info.version,
-                            'support': plugin_info.support,
-                            'hasEvents': plugin_info.events,
-                            'hasCommands': plugin_info.commands
-                        })
-                    }
-                    
-                    plugin_num += 1;
-                }
-    
-                if(plugin_num === plugin_count) {
-                    return plugin_list;
-                }
-            } else {
-                console.log("Error")
-            }
-        }*/
 
         const client = interaction.client
         interaction.deferReply()
