@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
+const bit = require("bit")
 
 module.exports = {
     cooldown: 5,
@@ -16,15 +17,7 @@ module.exports = {
         
         var plugin_num = 0;
         var plugin_count;
-        function plugins_count() {
-            const plugin_path = "./plugins/";
-            const plugins = fs.readdirSync(plugin_path)
-            //var plugin_count = plugins.length;
-    
-            return plugins.length;
-        }
-
-        function plugins_list() {
+        /*function plugins_list() {
             var plugin_list = []
     
             const plugin_path = "./plugins/";
@@ -54,7 +47,7 @@ module.exports = {
             } else {
                 console.log("Error")
             }
-        }
+        }*/
 
         const client = interaction.client
         interaction.deferReply()
@@ -65,12 +58,12 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle('Plugin List')
         
-        plugins_list().forEach(({ name, developer }) => {
+        bit.plugins_list().forEach(({ name, developer }) => {
             embed_description += name+" by "+developer+"\n"
             plugin_count2+=1;
         })
 
-        var plugin_count3 = plugins_count()
+        var plugin_count3 = bit.plugins_count()
 
         if(plugin_count2 === plugin_count3) {
             embed.setDescription(embed_description)
