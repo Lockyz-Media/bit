@@ -1,10 +1,10 @@
 {
     "name": "Bit Core",
     "developer": "Robin Painter",
-    "version": "5.2.2",
-    "bitVersion": "5.2.2",
+    "version": "5.2.3",
+    "bitVersion": "5.2.3",
     "support": "https://github.com/Lockyz-Dev/bit-core/issues",
-    "updateURL": "https://cdn.lockyzdev.net/bit/plugins/core/update.json",
+    "updateURL": "https://cdn.lockyzmedia.com/discord/bit/update/core/update.json",
     "events": "false",
     "commands": "true"
 }

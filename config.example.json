@@ -18,5 +18,5 @@
 		"status": "online, idle, invisible or dnd"
 	},
 	"token": "BOT-TOKEN",
-	"bit_updates": "https://cdn.lockyzmedia.com/discord/bots/bit/update.json"
+	"bit_updates": "https://cdn.lockyzmedia.com/discord/bit/update/update.json"
 }

@@ -112,7 +112,7 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.bitVersion) {
-			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x" || pluginInfo.bitVersion === "5.2" || pluginInfo.bitVersion === "5.2.2") {
+			if(pluginInfo.bitVersion === "5.2.x" || pluginInfo.bitVersion === "5.2.0" || pluginInfo.bitVersion === "5.x.x" || pluginInfo.bitVersion === "5.2" || pluginInfo.bitVersion === "5.2.3") {
 			} else {
 				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit: Core, there may be compatability issues.")
 			}

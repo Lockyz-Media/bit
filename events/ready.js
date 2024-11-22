@@ -39,7 +39,7 @@ module.exports = {
 		})
 
 		console.log('Status Set')
-		console.log('🟢 Bit Core: 5.2.2 Online! Logged in as '+ client.user.tag)
+		console.log('🟢 Bit Core: 5.2.3 Online! Logged in as '+ client.user.tag)
 		console.log('==== Have a good day! ====');
 
 		let url = bit_updates;
