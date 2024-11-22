@@ -54,8 +54,8 @@ module.exports = {
 		.then(res => res.json())
 		.then((json) => {
 			update = json.minor_versions["2024.1"]
-			if(json.stable.bit === "2024.1.1") {
-				if(json.latest.bit === "2024.1.1") {
+			if(json.stable.bit === "2024.1.2") {
+				if(json.latest.bit === "2024.1.2") {
 					console.log("You're using an unstable version of Bit. Please exercise caution")
 				} else {
 					console.log("This version of Bit is NOT the latest stable version. It's HIGHLY recommended to update!")
