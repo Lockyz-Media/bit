@@ -108,11 +108,16 @@ if(pluginPath && plugins) {
 		}
 
 		if(pluginInfo.requirements.bit) {
-			if(pluginInfo.requirements.bit.version === "2024.2.0" || pluginInfo.requirements.bit.version === "2024.1.0" || pluginInfo.requirements.bit.version === "2024.1.1") {
+			if(pluginInfo.requirements.bit.version === "2024.2.1" || pluginInfo.requirements.bit.version === "2024.2.0") {
 				compatible = true;
 			} else {
-				console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
-				compatible = false;
+				if(pluginInfo.requirements.bit.version === "2024.1.0" || pluginInfo.requirements.bit.version === "2024.1.1" || pluginInfo.requirements.bit.version === "2024.1.2") {
+					console.log("Plugin "+pluginInfo.name+" was made for Bit 2024.1.x, while it will still function, it's likely using outdated Bit code.")
+					compatible = true;
+				} else {
+					console.log("Plugin "+pluginInfo.name+" was not made for this version of Bit, there WILL be compatability issues.")
+					compatible = false;
+				}
 			}
 		} else {
 			console.log("Plugin "+pluginInfo.name+" does not specify a Bit version, it may have been built for an older version of the bot.")
