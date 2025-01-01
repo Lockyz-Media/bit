@@ -1,4 +1,9 @@
 const emojiCharacters = require("./emojiCharacters.js")
+const config = require("../../config.json")
+const fs = require('node:fs');
+const path = require('node:path');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 module.exports = {
     start_function: function start_function() {
         this.log(0, "Bit Core", true, "Successfully Loaded!")
@@ -131,6 +136,41 @@ module.exports = {
                         }
                     }
                 break;
+            }
+        }
+    },
+    plugins_count: function plugins_count() {
+        const plugin_path = "./plugins";
+        const plugins = fs.readdirSync(plugin_path)
+        var plugin_count = plugins.length;
+    
+        return plugin_count;
+    },
+    
+    plugins_list: function plugins_list() {
+        var plugin_list = []
+        var plugin_num = 0
+    
+        const plugin_path = "./plugins";
+        const plugins = fs.readdirSync(plugin_path)
+        var plugin_count = plugins.length
+    
+        if(plugin_path && plugins) {
+            for(const folder of plugins) {
+                const plugin_info = require("../../plugins/"+folder+"/plugin.json")
+                plugin_list.push({
+                    'name': plugin_info.name,
+                    'developer': plugin_info.developer,
+                    'version': plugin_info.version,
+                    'support': plugin_info.support,
+                    'has_events': plugin_info.events,
+                    'has_commands': plugin_info.commands
+                })
+                plugin_num += 1;
+            }
+    
+            if(plugin_num === plugin_count) {
+                return plugin_list;
             }
         }
     }

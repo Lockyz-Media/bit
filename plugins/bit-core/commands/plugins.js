@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
-const bit = require("bit")
+const core = require("bit/core")
 
 module.exports = {
     cooldown: 5,
@@ -17,7 +17,6 @@ module.exports = {
         
         var plugin_num = 0;
         var plugin_count;
-
         const client = interaction.client
         interaction.deferReply()
         await wait(4000);
@@ -27,12 +26,12 @@ module.exports = {
         const embed = new EmbedBuilder()
             .setTitle('Plugin List')
         
-        bit.plugins_list().forEach(({ name, developer }) => {
+            core.plugins_list().forEach(({ name, developer }) => {
             embed_description += name+" by "+developer+"\n"
             plugin_count2+=1;
         })
 
-        var plugin_count3 = bit.plugins_count()
+        var plugin_count3 = core.plugins_count()
 
         if(plugin_count2 === plugin_count3) {
             embed.setDescription(embed_description)

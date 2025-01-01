@@ -57,6 +57,8 @@ module.exports = {
 		.then((json) => {
 			update = json.minor_versions["2025.1"]
 			if(json.stable.bit === "2025.1.0") {
+
+			}
 				if(json.latest.bit === "2025.1.0") {
 					if(json.latest.bit === version) {
 						if(json.latest.status !== "stable") {
@@ -70,7 +72,6 @@ module.exports = {
 						}
 					}
 				}
-			}
 
 			if(update.status === "dev") {
 				core.log(1, "Bit Core", true, "This version of Bit is in active development. Things can and WILL change.");
@@ -100,7 +101,7 @@ module.exports = {
 				core.log(1, "Bit Core", true, "Please update to the latest version of Bit as soon as possible!");
 				core.log(1, "Bit Core", true, "You can find newer versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
-		})
+	}})
 		console.log("==== Welcome to Bit! ====")
 	}
 }
