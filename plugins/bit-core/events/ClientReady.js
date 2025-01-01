@@ -1,5 +1,5 @@
 const { Events, ActivityType } = require('discord.js');
-const { bit_updates } = require('../../../configs/bit-core/config.json');
+const { bit_updates, bit_version } = require('../../../configs/bit-core/config.json');
 const { embed_colours, bot_ids, activities, language, dev_mode } = require('../../../config.json');
 const core = require("bit/core");
 
@@ -55,11 +55,11 @@ module.exports = {
 		fetch(url, settings)
 		.then(res => res.json())
 		.then((json) => {
-			update = json.minor_versions["2025.1"]
-			if(json.stable.bit === "2025.1.0") {
+			update = json.minor_versions[bit_version.major]
+			if(json.stable.bit === bit_version.full) {
 
 			}
-				if(json.latest.bit === "2025.1.0") {
+				if(json.latest.bit === bit_version.full) {
 					if(json.latest.bit === version) {
 						if(json.latest.status !== "stable") {
 							core.log(1, "Bit Core", true, "You're using an unstable version of Bit. Please exercise caution!");

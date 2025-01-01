@@ -7,6 +7,7 @@ let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const core = require('bit/core');
+const { bit_version } = require("./configs/bit-core")
 
 
 if(!token) {
@@ -143,7 +144,7 @@ if(plugin_path && plugins) {
 			fetch(url, settings)
 			.then(res => res.json())
 			.then((json) => {
-				update = json.bit_versions["2025.1"]
+				update = json.bit_versions[bit_version.major]
 				if(update === plugin_info.version) {
 				} else {
 					core.log(1, "Bit", true, "Plugin "+plugin_info.name+" by "+plugin_info.developer+" is outdated, it may be dangerous to continue without updating.")
@@ -157,7 +158,7 @@ if(plugin_path && plugins) {
 		}
 
 		if(plugin_info.requirements.bit) {
-			if(plugin_info.requirements.bit.version === "2025.1.0") {
+			if(plugin_info.requirements.bit.version === bit_version.full) {
 				compatible = true;
 			} else {
 				core.log(2, "Bit", true, "Plugin "+plugin_info.name+" was not made for this version of Bit, there WILL be compatability issues.")
