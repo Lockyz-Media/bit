@@ -56,19 +56,21 @@ module.exports = {
 		.then((json) => {
 			update = json.minor_versions["2025.1"]
 			if(json.stable.bit === "2025.1.0") {
+
+			}
 				if(json.latest.bit === "2025.1.0") {
 
-			if(json.latest.bit === version) {
-				if(json.latest.status !== "stable") {
-					console.log("You're using an unstable version of Bit. Please exercise caution!")
-				}
-			} else {
-				if(json.stable.bit !== version) {
-					console.log("You're using an unstable and outdated version of Bit. Please exercise caution!")
+				if(json.latest.bit === version) {
+					if(json.latest.status !== "stable") {
+						console.log("You're using an unstable version of Bit. Please exercise caution!")
+					}
 				} else {
-					console.log("You're using an outdated version of Bit. Please update asap https://github.com/Lockyz-Media/bit")
+					if(json.stable.bit !== version) {
+						console.log("You're using an unstable and outdated version of Bit. Please exercise caution!")
+					} else {
+						console.log("You're using an outdated version of Bit. Please update asap https://github.com/Lockyz-Media/bit")
+					}
 				}
-			}
 
 			if(update.status === "dev") {
 				console.log("This version of Bit is in active development. Things can and WILL change.")
@@ -98,7 +100,7 @@ module.exports = {
 				console.log("Please update to the latest version of Bit as soon as possible!")
 				console.log("You can find other versions of Bit at https://github.com/Lockyz-Media/bit")
 			}
-		})
+	}})
 		console.log("==== Welcome to Bit! ====")
 	}
 }

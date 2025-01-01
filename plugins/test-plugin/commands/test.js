@@ -4,6 +4,8 @@ require('moment-duration-format');
 const { language } = require('../../../config.json')
 const bit = require('bit')
 const core = require('bit/core')
+const wait = require('node:timers/promises').setTimeout;
+require('moment-duration-format');
 
 module.exports = {
     cooldown: 5,
@@ -29,14 +31,14 @@ module.exports = {
 
         if(test === "emoji_test") {
             interaction.reply({ content: `# Emoji: ${core.find_emoji('#')}` })
-        } else if(log_test) {
+        } else if(test === "log_test") {
             core.log(0, "Test Plugin", true, "Test Info")
             core.log(1, "Test Plugin", true, "Test Warning")
             core.log(2, "Test Plugin", true, "Test Error")
             interaction.reply({ content: "Check Logs" })
-        } else if(count_plugins) {
-            interaction.reply({ content: `There are ${bit.plugins_count()} plugins installed!` })
-        } else if(list_plugins) {
+        } else if(test === "count_plugins") {
+            interaction.reply({ content: `There are ${core.plugins_count()} plugins installed!` })
+        } else if(test === "list_plugins") {
             var plugin_num = 0;
             var plugin_count;
 
@@ -49,12 +51,12 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle('Plugin List')
         
-            bit.plugins_list().forEach(({ name, developer }) => {
+                core.plugins_list().forEach(({ name, developer }) => {
                 embed_description += name+" by "+developer+"\n"
                 plugin_count2+=1;
             })
 
-            var plugin_count3 = bit.plugins_count()
+            var plugin_count3 = core.plugins_count()
 
             if(plugin_count2 === plugin_count3) {
                 embed.setDescription(embed_description)
