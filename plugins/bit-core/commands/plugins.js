@@ -17,7 +17,6 @@ module.exports = {
         
         var plugin_num = 0;
         var plugin_count;
-        
         const client = interaction.client
         interaction.deferReply()
         await wait(4000);
