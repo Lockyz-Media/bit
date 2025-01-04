@@ -13,7 +13,7 @@
     "requirements": {
         "bit": {
             "version": "2025.1.0",
-            "level": "1"
+            "level": 0
         }
     }
 }

@@ -220,7 +220,7 @@ if(plugin_path && plugins) {
 					var reqExists
 					var softReq
 			
-					if(reqDetails.level === "0") {
+					if(reqDetails.level === 0) {
 						const requirementExists = plugin_ids.some((pluginMap) => 
 							pluginMap.hasOwnProperty(reqName) &&
 							pluginMap[reqName].version === requiredVersion &&
@@ -232,7 +232,7 @@ if(plugin_path && plugins) {
 							reqExists = false;
 							softReq = false;
 						}
-					} else if(reqDetails.level === "1") {
+					} else if(reqDetails.level === 1) {
 						const requirementExists = plugin_ids.some((pluginMap) => 
 							pluginMap.hasOwnProperty(reqName) &&
 							pluginMap[reqName].disabled === false
@@ -243,7 +243,7 @@ if(plugin_path && plugins) {
 							reqExists = false;
 							softReq = false;
 						}
-					} else if(reqDetails.level === "2") {
+					} else if(reqDetails.level === 2) {
 						const requirementExists = plugin_ids.some((pluginMap) =>
 							pluginMap.hasOwnProperty(reqName) &&
 							pluginMap[reqName].disabled === false
@@ -254,7 +254,7 @@ if(plugin_path && plugins) {
 							reqExists = false;
 							softReq = true;
 						}
-					} else if(reqDetails.level === "3") {
+					} else if(reqDetails.level === 3) {
 						const requirementExists = plugin_ids.some((pluginMap) =>
 							pluginMap.hasOwnProperty(!reqName)
 						);
