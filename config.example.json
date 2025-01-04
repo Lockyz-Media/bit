@@ -17,6 +17,13 @@
 		"state": "The text that displays as the status",
 		"status": "online, idle, invisible or dnd"
 	},
+	"logs": {
+		"send_to_console": {
+			"info": true,
+			"errors": true,
+			"warnings": true
+		}
+	},
 	"guild_only": false,
 	"language": "en",
 	"dev_mode": true,
