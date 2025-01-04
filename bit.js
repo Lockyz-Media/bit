@@ -7,7 +7,7 @@ let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const core = require('bit/core');
-const { bit_version } = require("./configs/bit-core")
+const { bit_version } = require("./configs/bit-core/config.json")
 
 
 if(!token) {
