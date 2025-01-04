@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const moment = require('moment');
 require('moment-duration-format');
+const core = require("bit/core")
 
 module.exports = {
     cooldown: 5,
@@ -14,66 +15,26 @@ module.exports = {
         .setContexts(0,1,2),
 	async execute(interaction) {
         
-        var pluginNum = 0;
-        var pluginCount;
-        function countPlugins() {
-            const pluginPath = "./plugins/";
-            const plugins = fs.readdirSync(pluginPath)
-            //var pluginCount = plugins.length;
-    
-            return plugins.length;
-        }
-
-        function listAllPlugins() {
-            var pluginList = []
-    
-            const pluginPath = "./plugins/";
-            const plugins = fs.readdirSync(pluginPath)
-            pluginCount = plugins.length
-    
-            if(pluginPath && plugins) {
-                for(const folder of plugins) {
-                    const pluginInfo = require("./../../"+folder+"/plugin.json")
-                    if(pluginInfo.list_in_plugins_command === true) {
-                        pluginList.push({
-                            'name': pluginInfo.name,
-                            'developer': pluginInfo.developer,
-                            'version': pluginInfo.version,
-                            'support': pluginInfo.support,
-                            'hasEvents': pluginInfo.events,
-                            'hasCommands': pluginInfo.commands
-                        })
-                    }
-                    
-                    pluginNum += 1;
-                }
-    
-                if(pluginNum === pluginCount) {
-                    return pluginList;
-                }
-            } else {
-                console.log("Error")
-            }
-        }
-
+        var plugin_num = 0;
+        var plugin_count;
         const client = interaction.client
         interaction.deferReply()
         await wait(4000);
-        var pluginCount2 = 0;
-        var embedDescription = '';
+        var plugin_count2 = 0;
+        var embed_description = '';
 
         const embed = new EmbedBuilder()
             .setTitle('Plugin List')
         
-        listAllPlugins().forEach(({ name, developer }) => {
-            embedDescription += name+" by "+developer+"\n"
-            pluginCount2+=1;
+            core.plugins_list().forEach(({ name, developer }) => {
+            embed_description += name+" by "+developer+"\n"
+            plugin_count2+=1;
         })
 
-        var pluginCount3 = countPlugins()
+        var plugin_count3 = core.plugins_count()
 
-        if(pluginCount2 === pluginCount3) {
-            embed.setDescription(embedDescription)
+        if(plugin_count2 === plugin_count3) {
+            embed.setDescription(embed_description)
             interaction.editReply({ embeds: [embed] })
         }
 	}

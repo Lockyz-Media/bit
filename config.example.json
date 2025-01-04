@@ -1,0 +1,31 @@
+{
+	"embed_colours": {
+		"positive": "#00FF1C",
+		"negative": "#FF0000",
+		"neutral": "#9013FE",
+		"main": "#86C1FD",
+		"secondary": "#50E3C2"
+	},
+	"bot_ids": {
+		"logs": "LOGGING ID",
+		"guild": "GUILD ID",
+		"client": "CLIENT ID",
+		"owner": "OWNER ID"
+	},
+	"activities": {
+		"type": "custom, playing, listening, or watching",
+		"state": "The text that displays as the status",
+		"status": "online, idle, invisible or dnd"
+	},
+	"logs": {
+		"send_to_console": {
+			"info": true,
+			"errors": true,
+			"warnings": true
+		}
+	},
+	"guild_only": false,
+	"language": "en",
+	"dev_mode": true,
+	"token": "BOT-TOKEN"
+}

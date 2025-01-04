@@ -1,5 +1,7 @@
 const { Events, ActivityType } = require('discord.js');
-const { embedColours, botIDs, activities, language, devmode, bit_updates } = require('../../../configs/bit/config.json');
+const { bit_updates, bit_version } = require('../../../configs/bit-core/config.json');
+const { embed_colours, bot_ids, activities, language, dev_mode } = require('../../../config.json');
+const core = require("bit/core");
 
 module.exports = {
 	name: Events.ClientReady,
@@ -7,45 +9,45 @@ module.exports = {
 	execute(client) {
 		var lan = language;
         const locale = require('../../../locale/'+lan+'.json')
-		var statusActivityType = ActivityType.Playing
-		var statusActivityName = "string"
-		var statusActivityState = "string"
-		var activityStatus = "online"
+		var status_activity_type = ActivityType.Playing
+		var status_activity_name = "string"
+		var status_activity_state = "string"
+		var activity_status = "online"
 
 		if(activities.type === "custom") {
-			statusActivityType = ActivityType.Custom
+			status_activity_type = ActivityType.Custom
 		} else if(activities.type === "playing") {
-			statusActivityType = ActivityType.Playing
+			status_activity_type = ActivityType.Playing
 		} else if(activities.type === "listening") {
-			statusActivityType = ActivityType.Listening
+			status_activity_type = ActivityType.Listening
 		} else if(activities.type === "watching") {
-			statusActivityType = ActivityType.Watching
+			status_activity_type = ActivityType.Watching
 		}
 
 		if(activities.state) {
-			statusActivityState = activities.state
+			status_activity_state = activities.state
 		}
 
 		if(activities.status) {
-			activityStatus = activities.status
+			activity_status = activities.status
 		}
 
 		client.user.setPresence({
 			activities: [{
-				type: statusActivityType,
+				type: status_activity_type,
 				name: "status",
-				state: statusActivityState
+				state: status_activity_state
 			}],
-			status: activityStatus
+			status: activity_status
 		})
 
-		if(devmode === true) {
-			console.log(locale.debug.devmode.statusset)
+		if(dev_mode === true) {
+			core.log(0, "Bit Core", true, locale.debug.dev_mode.status.set);
 		}
 
-		console.log(locale.misc.login+ client.user.tag)
-		if(devmode === true) {
-			console.log(locale.debug.devmode.warning);
+		core.log(0, "Bit Core", true, locale.misc.login+ client.user.tag);
+		if(dev_mode === true) {
+			core.log(1, "Bit Core", true, locale.debug.dev_mode.warning);
 		}
 
 		let url = bit_updates;
@@ -53,55 +55,56 @@ module.exports = {
 		fetch(url, settings)
 		.then(res => res.json())
 		.then((json) => {
-			var version = "2024.2.0"
-			update = json.minor_versions["2024.2"]
-			/*if(json.stable.bit === "2024.2.0") {
-				if(json.latest.bit === "2024.2.0") {
-					console.log("You're using an unstable version of Bit. Please exercise caution")
-				} else {
-					console.log("This version of Bit is NOT the latest stable version. It's HIGHLY recommended to update!")
-				}
-			}*/
+			update = json.minor_versions[bit_version.major]
+			var isStable = false;
+			let version = bit_version.full;
+			
+			if(json.stable.bit === bit_version.full) {
+				isStable = true;
+			}
 
-			if(json.latest.bit === version) {
-				if(json.latest.status !== "stable") {
-					console.log("You're using an unstable version of Bit. Please exercise caution!")
-				}
-			} else {
-				if(json.stable.bit !== version) {
-					console.log("You're using an unstable and outdated version of Bit. Please exercise caution!")
+			if(isStable === false && json.latest.bit === bit_version.full) {
+				if(json.latest.bit === version) {
+					if(json.latest.status !== "stable") {
+						core.log(1, "Bit", true, "You're using an unstable version of Bit. Please update ASAP! https://github.com/Lockyz-Media/bit");
+					}
 				} else {
-					console.log("You're using an outdated version of Bit. Please update asap https://github.com/Lockyz-Media/bit")
+					if(json.stable.bit !== version) {
+						core.log(1, "Bit", true, "You're using an unstable and outdated version of Bit. Please update ASAP! https://github.com/Lockyz-Media/bit");
+					} else {
+						isStable = true;
+						core.log(1, "Bit", true, "You're using an outdated but stable version of Bit. While stable, we recommend updating to gain the latest features https://github.com/Lockyz-Media/bit")
+					}
 				}
 			}
 
 			if(update.status === "dev") {
-				console.log("This version of Bit is in active development. Things can and WILL change.")
-				console.log("Please move to a different version of Bit if you're using this in a production environment.")
-				console.log("You can find other versions of Bit at https://github.com/Lockyz-Media/bit")
+				core.log(1, "Bit Core", true, "This version of Bit is in active development. Things can and WILL change.");
+				core.log(1, "Bit Core", true, "Please move to a different version of Bit if you're using this in a production environment.");
+				core.log(1, "Bit Core", true, "You can find other versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
 
 			if(update.status === "beta") {
-				console.log("This version of Bit is in beta, things can break. Please be cautious when using this version")
-				console.log("You can find other versions of Bit at https://github.com/Lockyz-Media/bit")
+				core.log(1, "Bit Core", true, "This version of Bit is in beta, things can break. Please be cautious when using this version");
+				core.log(1, "Bit Core", true, "You can find other versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
 
 			if(update.status === "dele") {
-				console.log("This version of Bit no longer recieves ANY support whatsoever and as such has been deleted from all our services.")
-				console.log("Update to a newer version of bit ASAP!")
-				console.log("You can find newer versions of Bit at https://github.com/Lockyz-Media/bit")
+				core.log(1, "Bit Core", true, "This version of Bit no longer recieves ANY support whatsoever and as such has been deleted from all our services.");
+				core.log(1, "Bit Core", true, "Update to a newer version of bit ASAP!");
+				core.log(1, "Bit Core", true, "You can find newer versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
 				
 			if(update.status === "eol") {
-				console.log("This version of Bit has reached End of Life. This means you will no longer get support nor security updates.")
-				console.log("Please update to the latest version of Bit as soon as possible!")
-				console.log("You can find other versions of Bit at https://github.com/Lockyz-Media/bit")
+				core.log(1, "Bit Core", true, "This version of Bit has reached End of Life. This means you will no longer get support nor security updates.");
+				core.log(1, "Bit Core", true, "Please update to the latest version of Bit as soon as possible!");
+				core.log(1, "Bit Core", true, "You can find newer versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
 
 			if(update.status === "eos") {
-				console.log("This version of Bit has reached End of Service. This means you will only recieve security updates!")
-				console.log("Please update to the latest version of Bit as soon as possible!")
-				console.log("You can find other versions of Bit at https://github.com/Lockyz-Media/bit")
+				core.log(1, "Bit Core", true, "This version of Bit has reached End of Service. This means you will only recieve security updates!");
+				core.log(1, "Bit Core", true, "Please update to the latest version of Bit as soon as possible!");
+				core.log(1, "Bit Core", true, "You can find newer versions of Bit at https://github.com/Lockyz-Media/bit");
 			}
 		})
 		console.log("==== Welcome to Bit! ====")
