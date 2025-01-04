@@ -105,7 +105,8 @@ if(plugin_path && plugins) {
 			name: plugin_info.name,
 			id: plugin_info.id,
 			version: plugin_info.version,
-			disabled: plugin_info.disabled
+			disabled: plugin_info.disabled,
+			requirements: plugin_info.requirements
 		})
 		const jsonString = JSON.stringify(jsonData);
 		fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
