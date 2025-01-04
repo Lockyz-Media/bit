@@ -95,6 +95,12 @@ if(plugin_path && plugins) {
 			plugin_info.disabled = true
 		}
 
+		if(plugin_file.requirements) {
+			plugin_info.requirements = plugin_file.requirements;
+		} else {
+			plugin_info.disabled = true;
+		}
+
 		if(plugin_info.disabled) {
 			plugin_info.disabled = true
 		} else {
