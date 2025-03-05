@@ -2,6 +2,7 @@ const { Events, ActivityType } = require('discord.js');
 const { bit_updates, bit_version } = require('../../../configs/bit-core/config.json');
 const { embed_colours, bot_ids, activities, language, dev_mode } = require('../../../config.json');
 const core = require("bit/core");
+const plugins = require("bit/plugins");
 
 module.exports = {
 	name: Events.ClientReady,
@@ -108,5 +109,6 @@ module.exports = {
 			}
 		})
 		console.log("==== Welcome to Bit! ====")
+		console.log(plugins.find('bit-core'));
 	}
 }

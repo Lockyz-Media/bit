@@ -140,6 +140,9 @@ module.exports = {
         }
     },
     plugins_count: function plugins_count() {
+        this.log(2, 'Bit: Core', true, "This function is now deprecated and will be removed in a future Bit/Bit: Core release!")
+        console.log("Bit now has a custom \"plugins\" import that has uses slightly nicer versions of these functions.")
+
         const plugin_path = "./plugins";
         const plugins = fs.readdirSync(plugin_path)
         var plugin_count = plugins.length;
@@ -148,6 +151,9 @@ module.exports = {
     },
     
     plugins_list: function plugins_list() {
+        this.log(2, 'Bit: Core', true, "This function is now deprecated and will be removed in a future Bit/Bit: Core release!")
+        console.log("Bit now has a custom \"plugins\" import that has uses slightly nicer versions of these functions.")
+        
         var plugin_list = []
         var plugin_num = 0
     
