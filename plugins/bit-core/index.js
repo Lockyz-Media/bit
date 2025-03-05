@@ -5,21 +5,29 @@ const path = require('node:path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
+    /**
+     * @description Starts a function on bot load
+     */
     start_function: function start_function() {
         this.log(0, "Bit Core", true, "Successfully Loaded!")
     },
+
+    /**
+     * @description Get an emoji thats unicode value does not work.
+     * @param {string} emoji The emoji
+     */
     find_emoji: function find_emoji(emoji) {
         return emojiCharacters[emoji];
     },
+
+    /**
+    * @description Creates a log using Bits custom logging system
+    * @param {number} type 0 for Info, 1 for Warning, 2 for Error
+    * @param {string} plugin The name of your plugin
+    * @param {boolean} force Whether to force the log to the console regardless of user setting
+    * @param {string} message The exact log
+    */
     log: function log(type, plugin, force, message) {
-        /**
-         * @description Creates a log using Bits custom logging system
-         * @param {number} type 0 for Info, 1 for Warning, 2 for Error
-         * @param {string} plugin The name of your plugin
-         * @param {boolean} force Whether to force the log to the console regardless of user setting
-         * @param {string} message The exact log
-         */
-        
         if(isNaN(type)) {
             if(plugin) {
                 if(message) {
@@ -139,8 +147,13 @@ module.exports = {
             }
         }
     },
+
+    /**
+    * @description Total count of all installed plugins
+    * @deprecated
+    */
     plugins_count: function plugins_count() {
-        this.log(2, 'Bit: Core', true, "This function is now deprecated and will be removed in a future Bit/Bit: Core release!")
+        this.log(2, 'Bit: Core', true, "A plugin has used a function that is now deprecated and will be removed in a future release!")
         console.log("Bit now has a custom \"plugins\" import that has uses slightly nicer versions of these functions.")
 
         const plugin_path = "./plugins";
@@ -150,8 +163,12 @@ module.exports = {
         return plugin_count;
     },
     
+    /**
+    * @description List all plugins that are installed
+    * @deprecated
+    */
     plugins_list: function plugins_list() {
-        this.log(2, 'Bit: Core', true, "This function is now deprecated and will be removed in a future Bit/Bit: Core release!")
+        this.log(2, 'Bit: Core', true, "A plugin has used a function that is now deprecated and will be removed in a future release!")
         console.log("Bit now has a custom \"plugins\" import that has uses slightly nicer versions of these functions.")
         
         var plugin_list = []

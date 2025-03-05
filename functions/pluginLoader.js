@@ -1,5 +1,10 @@
 const fs = require('node:fs');
 
+/**
+ * @description Checks if a plugin is currently active, based on either just its id or (optionally) its version
+ * @param {string} id The ID of the plugin you want to check
+ * @param {string} version (Optionally) the version you want to check against.
+ */
 function is_active(id, version) {
     const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
 	const jsonData = JSON.parse(plugins_json);
@@ -61,6 +66,10 @@ function is_active(id, version) {
     }
 }
 
+/**
+ * @description Find a plugin by its ID
+ * @param {string} id The ID for the plugin you want to find.
+ */
 function find(id) {
     const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
 	const jsonData = JSON.parse(plugins_json);
@@ -90,6 +99,9 @@ function find(id) {
     }
 }
 
+/**
+ * @description List all plugins that are installed
+ */
 function list() {
     var plugin_list = []
     var plugin_num = 0
@@ -118,6 +130,9 @@ function list() {
     }
 }
 
+/**
+ * @description Total count of all installed plugins
+ */
 function count() {
     const plugin_path = "./plugins";
     const plugins = fs.readdirSync(plugin_path)
@@ -126,10 +141,18 @@ function count() {
     return plugin_count;
 }
 
+/**
+ * @description Disable a plugin by its ID
+ * @param {string} id The ID of the plugin you want to disable
+ */
 function disable(id) {
 
 }
 
+/**
+ * @description Enable a plugin by its ID
+ * @param {string} id The ID of the plugin you want to enable
+ */
 function enable(id) {
 
 }
