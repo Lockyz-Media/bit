@@ -344,3 +344,35 @@ if(no_core === true) {
 }
 
 client.login(token);
+
+module.exports = {
+	plugins: {
+		find(name) {
+			return {
+				"name": "Name",
+				"version": "Version",
+				"developer": "Developer",
+				"certified": false,
+				"support": "Support",
+				"has_events": false,
+				"has_commands": false,
+				"has_index": false,
+				"main_file": "index.js",
+				"requirements": {
+					"bit": {
+						version: "2025.1.0",
+						"level": 0
+					}
+				}
+			}
+		},
+
+		list() {
+
+		},
+
+		count() {
+
+		}
+	}
+}
