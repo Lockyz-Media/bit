@@ -9,15 +9,55 @@ function is_active(id, version) {
     if(plugin) {
         if(version) {
             if(plugin.version === version) {
-                return true;
+                if(plugin.disabled === true) {
+                    return {
+                        "installed": true,
+                        "activated": false,
+                        "match_version": true
+                    }
+                } else {
+                    return {
+                        "installed": true,
+                        "activated": true,
+                        "match_version": true
+                    }
+                }
             } else {
-                return false;
+                if(plugin.disabled === true) {
+                    return {
+                        "installed": true,
+                        "activated": false,
+                        "match_version": false
+                    }
+                } else {
+                    return {
+                        "installed": true,
+                        "activated": true,
+                        "match_version": false
+                    }
+                }
             }
         } else {
-            return true;
+            if(plugin.disabled === true) {
+                return {
+                    "installed": true,
+                    "activated": false,
+                    "match_version": null
+                }
+            } else {
+                return {
+                    "installed": true,
+                    "activated": true,
+                    "match_version": null
+                }
+            }
         }
     } else {
-        return false;
+        return {
+            "installed": false,
+            "activated": null,
+            "match_version": null
+        };
     }
 }
 
