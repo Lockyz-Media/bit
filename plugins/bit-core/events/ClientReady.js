@@ -109,6 +109,5 @@ module.exports = {
 			}
 		})
 		console.log("==== Welcome to Bit! ====")
-		console.log(plugins.find('bit-core'));
 	}
 }

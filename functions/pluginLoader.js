@@ -89,12 +89,14 @@ function find(id) {
                 "code": 200,
                 "description": "Success"
             },
-            "id": plugin.id,
-            "disabled": plugin.disabled,
-            "name": plugin.name,
-            "version": plugin.version,
-            "has_index": plugin.has_index,
-            "requirements": plugin.requirements
+            "plugin": {
+                "id": plugin.id,
+                "disabled": plugin.disabled,
+                "name": plugin.name,
+                "version": plugin.version,
+                "has_index": plugin.has_index,
+                "requirements": plugin.requirements
+            }
         }
     }
 }
