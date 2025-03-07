@@ -2,7 +2,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const fs = require('node:fs');
 const path = require('node:path');
 const { token, bot_ids, dev_mode } = require('./config.json');
-let pluginsFile = fs.readFileSync("./databases/bit/plugins.json","utf-8");
+let pluginsFile = fs.readFileSync("./data/bit/plugins.json","utf-8");
 //const fetch = require('node-fetch');
 //import fetch from 'node-fetch';
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -66,7 +66,7 @@ console.log("Loading "+plugins.length+" plugins")
 var no_core = true;
 
 var jsonString = `{"plugins":[]}`
-fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+fs.writeFileSync('./data/bit/plugins.json', jsonString, 'utf-8', (err) => {
 	if (err) throw err;
   });
 
@@ -74,7 +74,7 @@ if(plugin_path && plugins) {
 	for(const folder of plugins) {
 		var disabled = false;
 		const plugin_file = require(plugin_path+"/"+folder+"/plugin.json")
-		const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
+		const plugins_json = fs.readFileSync('./data/bit/plugins.json');
 		const jsonData = JSON.parse(plugins_json);
 		var plugin_info = new Array()
 		var compatible = true;
@@ -191,11 +191,11 @@ if(plugin_path && plugins) {
 		})
 
 		const jsonString = JSON.stringify(jsonData);
-		fs.writeFileSync('./databases/bit/plugins.json', jsonString, 'utf-8', (err) => {
+		fs.writeFileSync('./data/bit/plugins.json', jsonString, 'utf-8', (err) => {
 			if (err) throw err;
 		  });
 
-		  fs.readFile('./databases/bit/plugins.json', 'utf8', (err, data) => {
+		  fs.readFile('./data/bit/plugins.json', 'utf8', (err, data) => {
 			if(err) {
 				core.log(0, "Bit", true, "Cannot read plugins database: "+err)
 				process.exit(1);
@@ -276,7 +276,7 @@ if(plugin_path && plugins) {
 				}
 			})
 		
-			fs.writeFile('./databases/bit/plugins.json', JSON.stringify(plugins_database, null, 2), 'utf8', (err) => {
+			fs.writeFile('./data/bit/plugins.json', JSON.stringify(plugins_database, null, 2), 'utf8', (err) => {
 				if(err) {
 					core.log(0, "Bit", true, "Cannot write to plugins json: "+ err);
 					process.exit(1);
