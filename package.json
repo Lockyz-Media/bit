@@ -1,6 +1,6 @@
 {
   "name": "bit",
-  "version": "2025.1.0",
+  "version": "2025.2.0",
   "description": "Bit is a bot framework developed by Lockyz Media",
   "main": "bit.js",
   "scripts": {
@@ -24,6 +24,8 @@
     "ms": "^2.1.3"
   },
   "exports": {
-    "./core": "./plugins/bit-core/index.js"
+    "./core": "./plugins/bit-core/index.js",
+    "./plugins": "./functions/pluginLoader.js",
+    "./plugin/*": "./plugins/*/index.js"
   }
 }
