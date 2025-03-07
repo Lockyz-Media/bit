@@ -6,7 +6,7 @@ const fs = require('node:fs');
  * @param {string} version (Optionally) the version you want to check against.
  */
 function is_active(id, version) {
-    const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
+    const plugins_json = fs.readFileSync('./data/bit/plugins.json');
 	const jsonData = JSON.parse(plugins_json);
     
     const plugin = jsonData.plugins.find(plugin => plugin.id === id);
@@ -71,7 +71,7 @@ function is_active(id, version) {
  * @param {string} id The ID for the plugin you want to find.
  */
 function find(id) {
-    const plugins_json = fs.readFileSync('./databases/bit/plugins.json');
+    const plugins_json = fs.readFileSync('./data/bit/plugins.json');
 	const jsonData = JSON.parse(plugins_json);
 
     const plugin = jsonData.plugins.find(plugin => plugin.id === id)
