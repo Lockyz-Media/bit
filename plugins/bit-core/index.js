@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const { GatewayIntentBits } = require('discord.js');
+const { execSync } = require('child_process');
 
 let intents = [
     GatewayIntentBits.Guilds,
@@ -30,6 +31,15 @@ module.exports = {
     },
 
     intents,
+
+    install_module: function install_module(moduleName) {
+        try {
+            require.resolve(moduleName);
+        } catch (error) {
+            console.log(`Installing missing module: ${moduleName}...`)
+            execSync(`npm install ${moduleName}`, {stdio: 'inherit' });
+        }
+    },
 
     /**
      * @description Get an emoji thats unicode value does not work.
