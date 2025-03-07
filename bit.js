@@ -24,13 +24,25 @@ if(!bot_ids.owner) {
 	core.log(1, "Bit", true, "Owner ID is not defined, some bot functions will never work.")
 }
 
-const client = new Client({
-	intents: [
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildEmojisAndStickers,
-		
-    ]
-})
+const plugin_path = path.join(__dirname, 'plugins');
+const plugins = fs.readdirSync(plugin_path)
+console.log("Loading "+plugins.length+" plugins")
+if(plugin_path && plugins) {
+	for(const folder of plugins) {
+		const plugin_file = require(plugin_path+"/"+folder+"/plugin.json")
+
+		if(plugin_file.has_intents) {
+			if(plugin_file.main_file) {
+				var plugin = require(plugin_path+"/"+folder+"/"+plugin_file.main_file);
+				plugin.define_intents();
+			}
+		}
+	}
+}
+
+const intents = core.intents;
+
+const client = new Client({ intents })
 var thisSentence = false;
 
 process.on('unhandledRejection', error => {
@@ -60,9 +72,6 @@ if(events_path && event_files) {
 
 }
 
-const plugin_path = path.join(__dirname, 'plugins');
-const plugins = fs.readdirSync(plugin_path)
-console.log("Loading "+plugins.length+" plugins")
 var no_core = true;
 
 var jsonString = `{"plugins":[]}`
