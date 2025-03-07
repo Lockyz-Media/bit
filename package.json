@@ -26,6 +26,8 @@
   "exports": {
     "./core": "./plugins/bit-core/index.js",
     "./plugins": "./functions/pluginLoader.js",
-    "./plugin/*": "./plugins/*/index.js"
+    "./plugin/*": "./plugins/*/index.js",
+    "./config": "./config.json",
+    "./configs/*": "./configs/*/config.json"
   }
 }
