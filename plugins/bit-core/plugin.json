@@ -9,6 +9,7 @@
     "commands": true,
     "has_index": true,
     "main_file": "index.js",
+    "has_intents": false,
     "list_in_plugins_command": true,
     "requirements": {
         "bit": {
