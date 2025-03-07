@@ -24,13 +24,25 @@ if(!bot_ids.owner) {
 	core.log(1, "Bit", true, "Owner ID is not defined, some bot functions will never work.")
 }
 
-const client = new Client({
-	intents: [
-		GatewayIntentBits.GuildMessages,
-		GatewayIntentBits.GuildEmojisAndStickers,
-		
-    ]
-})
+const plugin_path = path.join(__dirname, 'plugins');
+const plugins = fs.readdirSync(plugin_path)
+console.log("Loading "+plugins.length+" plugins")
+if(plugin_path && plugins) {
+	for(const folder of plugins) {
+		const plugin_file = require(plugin_path+"/"+folder+"/plugin.json")
+
+		if(plugin_file.has_index) {
+			if(plugin_file.main_file) {
+				var plugin = require(plugin_path+"/"+folder+"/"+plugin_file.main_file);
+				plugin.start_function();
+			}
+		}
+	}
+}
+
+const intents = core.intents;
+
+const client = new Client({ intents })
 var thisSentence = false;
 
 process.on('unhandledRejection', error => {
@@ -60,9 +72,6 @@ if(events_path && event_files) {
 
 }
 
-const plugin_path = path.join(__dirname, 'plugins');
-const plugins = fs.readdirSync(plugin_path)
-console.log("Loading "+plugins.length+" plugins")
 var no_core = true;
 
 var jsonString = `{"plugins":[]}`
@@ -319,14 +328,14 @@ if(plugin_path && plugins) {
 					}
 				}
 
-				if(plugin_data.has_index) {
+				/*if(plugin_data.has_index) {
 					if(plugin_data.main_file) {
 						var plugin = require(plugin_path+"/"+folder+"/"+plugin_data.main_file);
 						plugin.start_function();
 					} else {
 						core.log(2, "Bit", true, `The plugin ${plugin_data.name} tried to start a file that doesn't exist!`)
 					}
-				}
+				}*/
 			} else {
 				core.log(1, "Bit", true, plugin_data.name+" is not compatible with this version of Bit and has been skipped!")
 			}

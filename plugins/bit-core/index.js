@@ -3,6 +3,13 @@ const config = require("../../config.json")
 const fs = require('node:fs');
 const path = require('node:path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { GatewayIntentBits } = require('discord.js');
+
+let intents = [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.GuildExpressions
+]
 
 module.exports = {
     /**
@@ -11,6 +18,18 @@ module.exports = {
     start_function: function start_function() {
         this.log(0, "Bit Core", true, "Successfully Loaded!")
     },
+
+    add_intent: function add_intent(intent) {
+        if(!intent) {
+            this.log(0, "Bit: Core", true, "Intents not defined!")
+        } else {
+            if(!intents.includes(intent)) {
+                intents.push(intent);
+            }
+        }
+    },
+
+    intents,
 
     /**
      * @description Get an emoji thats unicode value does not work.
