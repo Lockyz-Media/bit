@@ -4,7 +4,7 @@
     "developer": "Lockyz Media",
     "version": "2025.2.0",
     "support": "https://github.com/Lockyz-Media/bit/issues",
-    "update_url": "https://cdn.lockyzmedia.com/discord/bit/update/core/update.json",
+    "update_url": "https://cdn.lockyzdev.net/discord/bit/update/core/update.json",
     "events": true,
     "commands": true,
     "has_index": true,
