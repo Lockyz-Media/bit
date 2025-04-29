@@ -77,7 +77,7 @@ var no_core = true;
 var jsonString = `{"plugins":[]}`
 fs.writeFileSync('./data/bit/plugins.json', jsonString, 'utf-8', (err) => {
 	if (err) throw err;
-  });
+});
 
 if(plugin_path && plugins) {
 	for(const folder of plugins) {
@@ -202,9 +202,9 @@ if(plugin_path && plugins) {
 		const jsonString = JSON.stringify(jsonData);
 		fs.writeFileSync('./data/bit/plugins.json', jsonString, 'utf-8', (err) => {
 			if (err) throw err;
-		  });
-
-		  fs.readFile('./data/bit/plugins.json', 'utf8', (err, data) => {
+		});
+		
+		fs.readFile('./data/bit/plugins.json', 'utf8', (err, data) => {
 			if(err) {
 				core.log(0, "Bit", true, "Cannot read plugins database: "+err)
 				process.exit(1);
@@ -224,46 +224,61 @@ if(plugin_path && plugins) {
 					if(reqName === "bit") {
 						reqName = "bit-core"
 					}
+
+					var requiredVersion
+					var reqLevel
+					var isArray = false;
+
+					if(reqDetails.version instanceof Array) {
+						isArray = true;
+					}
 			
-					const requiredVersion = reqDetails.version;
+					//const requiredVersion = reqDetails.version;
 					var reqExists
 					var softReq
 			
-					if(reqDetails.level === 0) {
-						const requirementExists = plugin_ids.some((pluginMap) => 
-							pluginMap.hasOwnProperty(reqName) &&
-							pluginMap[reqName].version === requiredVersion &&
-							pluginMap[reqName].disabled === false
-						);
+					if(reqLevel === 0) {
+						const requirementExists = plugin_ids.some((pluginMap) => {
+							if(pluginMap.hasOwnProperty(reqName)) {
+								if(isArray) {
+									if(reqDetails.version[pluginMap[reqName].version] === true) {
+										pluginMap[reqName].disabled === false
+									}
+								} else {
+									pluginMap[reqName].version === requiredVersion &&
+									pluginMap[reqName].disabled === false
+								}
+							}
+						});
 			
 						if(!requirementExists) {
-							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${reqDetails.version}" was not found, plugin will be disabled as this is a hard requirement!`)
+							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found, plugin will be disabled as this is a hard requirement!`)
 							reqExists = false;
 							softReq = false;
 						}
-					} else if(reqDetails.level === 1) {
+					} else if(reqLevel === 1) {
 						const requirementExists = plugin_ids.some((pluginMap) => 
 							pluginMap.hasOwnProperty(reqName) &&
 							pluginMap[reqName].disabled === false
 						);
 				
 						if(!requirementExists) {
-							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${reqDetails.version}" was not found, plugin will be disabled as this is a hard requirement!`)
+							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found, plugin will be disabled as this is a hard requirement!`)
 							reqExists = false;
 							softReq = false;
 						}
-					} else if(reqDetails.level === 2) {
+					} else if(reqLevel === 2) {
 						const requirementExists = plugin_ids.some((pluginMap) =>
 							pluginMap.hasOwnProperty(reqName) &&
 							pluginMap[reqName].disabled === false
 						);
 			
 						if(!requirementExists) {
-							core.log(1, "Bit", true, `Soft requirement "${reqName}" for plugin "${plugin_info.name}" at version "${reqDetails.version}" was not found. Some features may be disabled!`)
+							core.log(1, "Bit", true, `Soft requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found. Some features may be disabled!`)
 							reqExists = false;
 							softReq = true;
 						}
-					} else if(reqDetails.level === 3) {
+					} else if(reqLevel === 3) {
 						const requirementExists = plugin_ids.some((pluginMap) =>
 							pluginMap.hasOwnProperty(!reqName)
 						);
