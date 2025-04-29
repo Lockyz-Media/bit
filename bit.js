@@ -234,7 +234,7 @@ if(plugin_path && plugins) {
 						plugin_ids.some((pluginMap) => {
 							if(pluginMap.hasOwnProperty(reqName)) {
 								if(reqDetails.version[pluginMap[reqName].version].compatible === true) {
-									reqLevel = reqDetails.version[pluginMap[reqName].version].level
+									reqLevel = 0
 									return true;
 								} else {
 									reqLevel = 4
