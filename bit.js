@@ -231,6 +231,19 @@ if(plugin_path && plugins) {
 
 					if(reqDetails.version instanceof Array) {
 						isArray = true;
+						plugin_ids.some((pluginMap) => {
+							if(pluginMap.hasOwnProperty(reqName)) {
+								if(reqDetails.version[pluginMap[reqName].version].compatible === true) {
+									reqLevel = reqDetails.version[pluginMap[reqName].version].level
+									return true;
+								} else {
+									reqLevel = 4
+								}
+							}
+						})
+					} else {
+						reqLevel = reqDetails.level
+						requiredVersion = reqDetails.version
 					}
 			
 					//const requiredVersion = reqDetails.version;
@@ -238,21 +251,68 @@ if(plugin_path && plugins) {
 					var softReq
 			
 					if(reqLevel === 0) {
+						var pluginMet;
+						var versionMet;
+						var disabledMet;
+						var reqVersooo;
+
 						const requirementExists = plugin_ids.some((pluginMap) => {
 							if(pluginMap.hasOwnProperty(reqName)) {
+								pluginMet = true;
+
 								if(isArray) {
-									if(reqDetails.version[pluginMap[reqName].version] === true) {
-										pluginMap[reqName].disabled === false
+									if(reqDetails.version[pluginMap[reqName].version].compatible === true) {
+										versionMet = true;
+										reqVersooo = pluginMap[reqName].version;
+										if(pluginMap[reqName].disabled) {
+											disabledMet = false;
+											return false;
+										} else {
+											disabledMet = true;
+											return true;
+										}
+									} else {
+										versionMet = false;
+										return false;
 									}
 								} else {
-									pluginMap[reqName].version === requiredVersion &&
-									pluginMap[reqName].disabled === false
+									if(pluginMap[reqName].version === requiredVersion) {
+										versionMet = true;
+
+										if(pluginMap[reqName].disabled === false) {
+											disabledMet = true;
+											return true;
+										} else {
+											disabledMet = false;
+											return false
+										}
+									} else {
+										versionMet = false;
+										return false;
+									}
 								}
+							} else {
+								pluginMet = false;
+								return false;
 							}
 						});
 			
 						if(!requirementExists) {
-							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found, plugin will be disabled as this is a hard requirement!`)
+							if(pluginMet) {
+								if(versionMet) {
+									if(disabledMet) {
+										core.log(2, "Bit", true, `An unknown error has occured while trying to find the requirements for ${plugin_info.name}.`)
+										core.log(2, "Bit", true, `Please consult the Plugins support page: ${plugin_info.support}.`)
+									} else {
+										core.log(2, "Bit", true, `Requirement "${reqName}" for plugin ${plugin_info.name} was disabled. As this is a hard requirement, ${plugin_info.name} will now be disabled`);
+									}
+								} else {
+									core.log(2, "Bit", true, `Requirement "${reqName}" (Version "${requiredVersion}") for plugin "${plugin_info.name}" was not found, plugin will be disabled as this is a hard requirement!`)
+								}
+							} else {
+								core.log(2, "Bit", true, `Requirement "${reqName}" (Version "${requiredVersion}") for plugin "${plugin_info.name}" was not found, plugin will be disabled as this is a hard requirement!`)
+							}
+							
 							reqExists = false;
 							softReq = false;
 						}
@@ -263,7 +323,7 @@ if(plugin_path && plugins) {
 						);
 				
 						if(!requirementExists) {
-							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found, plugin will be disabled as this is a hard requirement!`)
+							core.log(2, "Bit", true, `Requirement "${reqName}" for plugin "${plugin_info.name}" was not found, plugin will be disabled as this is a hard requirement!`)
 							reqExists = false;
 							softReq = false;
 						}
@@ -274,7 +334,7 @@ if(plugin_path && plugins) {
 						);
 			
 						if(!requirementExists) {
-							core.log(1, "Bit", true, `Soft requirement "${reqName}" for plugin "${plugin_info.name}" at version "${requiredVersion}" was not found. Some features may be disabled!`)
+							core.log(1, "Bit", true, `Soft requirement "${reqName}" for plugin "${plugin_info.name}" was not found. Some features may be disabled!`)
 							reqExists = false;
 							softReq = true;
 						}
@@ -288,6 +348,11 @@ if(plugin_path && plugins) {
 							reqExists = false;
 							softReq = false;
 						}
+					} else if(reqLevel === 4) {
+						core.log(1, "Bit", true, `Plugin "${plugin_info.name}" does NOT contain a valid value for a requirement named: ${reqName}.`)
+						core.log(1, "Bit", true, `As I am now, no longer able to check this plugin for requirements, it has been disabled!`)
+						reqExists = false;
+						softReq = false;
 					}
 			
 					if(reqExists === false && softReq === false) {
