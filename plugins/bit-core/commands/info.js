@@ -2,6 +2,7 @@ const { EmbedBuilder, version: discordVersion, SlashCommandBuilder } = require('
 const moment = require('moment');
 require('moment-duration-format');
 const { language } = require('../../../config.json')
+const { bit_version } = require('../../../configs/bit-core/config.json')
 
 module.exports = {
     cooldown: 5,
@@ -37,7 +38,7 @@ module.exports = {
                 { name: locale.misc.memory, value: `${Math.round(memUsage)} MB`, inline: true },
                 { name: locale.misc.discordJS, value: `v${discordVersion}`, inline: true },
                 { name: locale.misc.node, value: `${process.version}`, inline: true },
-                { name: locale.misc.version, value: "v20.2.1", inline: true },
+                { name: locale.misc.version, value: bit_version.full, inline: true },
             )
             .setFooter({ text: locale.misc.copyright.replace('{year}', n)});
         interaction.reply({ embeds: [embed] })
