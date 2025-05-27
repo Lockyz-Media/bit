@@ -1,6 +1,6 @@
 const { Events } = require('discord.js');
 const { dev_mode, language } = require('../config.json');
-const banned_users = require("../databases/bit-core/bannedUsers.json")
+const banned_users = require("../data/bit-core/bannedUsers.json")
 const core = require("bit/core")
 
 module.exports = {

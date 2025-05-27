@@ -1,8 +1,8 @@
 {
 	"note": "DO NOT CHANGE ANYTHING WITHIN THIS FILE, YOU CAN BREAK THE BOT!",
-	"bit_updates": "https://cdn.lockyzmedia.com/discord/bots/bit/update.json",
+	"bit_updates": "https://cdn.lockyzdev.net/discord/bit/update.json",
 	"bit_version": {
-		"full": "2025.1.0",
-		"major": "2025.1"
+		"full": "2025.2.0",
+		"major": "2025.2"
 	}
 }

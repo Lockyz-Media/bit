@@ -22,7 +22,7 @@ if(plugin_path && plugins) {
 				for(const file of plugin_command_files) {
 					const command = require(plugin_commands_path+`/${file}`);
 					console.log("Deploying command "+command.data.name)
-          
+
 					const command_json = command.data.toJSON();
 					commands.push(command_json);
 				}
