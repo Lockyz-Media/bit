@@ -1,4 +1,4 @@
-const { Events, ActivityType } = require('discord.js');
+const { Events, ActivityType, PresenceUpdateStatus } = require('discord.js');
 const { bit_updates, bit_version } = require('../../../configs/bit-core/config.json');
 const { embed_colours, bot_ids, activities, language, dev_mode } = require('../../../config.json');
 const core = require("bit/core");
@@ -23,24 +23,44 @@ module.exports = {
 			status_activity_type = ActivityType.Listening
 		} else if(activities.type === "watching") {
 			status_activity_type = ActivityType.Watching
+		} else {
+			status_activity_type = ActivityType.Playing;
 		}
 
-		if(activities.state) {
+		if(activities.state === "The text that displays as the status") {
+			status_activity_state = false;
+		} else if(activities.state === false) {
+			status_activity_state = false;
+		} else if(activities.state) {
 			status_activity_state = activities.state
+		} else {
+			status_activity_state = false;
 		}
 
-		if(activities.status) {
-			activity_status = activities.status
+		if(activities.status === "online") {
+			activity_status = PresenceUpdateStatus.Online
+		} else if(activities.status === "idle") {
+			activity_status = PresenceUpdateStatus.Idle
+		} else if(activities.status === "dnd") {
+			activity_status = PresenceUpdateStatus.DoNotDisturb
+		} else if(activities.status === "invisible") {
+			activity_status = PresenceUpdateStatus.Invisible
+		} else {
+			activity_status = PresenceUpdateStatus.Online
 		}
 
-		client.user.setPresence({
-			activities: [{
-				type: status_activity_type,
-				name: "status",
-				state: status_activity_state
-			}],
-			status: activity_status
-		})
+		if(status_activity_state === false) {
+			client.user.setStatus(activity_status)
+		} else {
+			client.user.setPresence({
+				activities: [{
+					type: status_activity_type,
+					name: "status",
+					state: status_activity_state
+				}],
+				status: activity_status
+			})
+		}
 
 		if(dev_mode === true) {
 			core.log(0, "Bit Core", true, locale.debug.dev_mode.status.set);
