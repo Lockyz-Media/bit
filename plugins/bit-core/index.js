@@ -5,6 +5,7 @@ const path = require('node:path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const { GatewayIntentBits } = require('discord.js');
 const { execSync } = require('child_process');
+var quote = require('shell-quote/quote');
 
 let intents = [
     GatewayIntentBits.Guilds,
@@ -77,11 +78,12 @@ module.exports = {
     intents,
 
     install_module: function install_module(moduleName) {
+        var moduleName2 = quote([moduleName])
         try {
-            require.resolve(moduleName);
+            require.resolve(moduleName2);
         } catch (error) {
-            console.log(`Installing missing module: ${moduleName}...`)
-            execSync(`npm install ${moduleName}`, {stdio: 'inherit' });
+            console.log(`Installing missing module: ${moduleName2}...`)
+            execSync(`npm install ${moduleName2}`, {stdio: 'inherit' });
         }
     },
 
